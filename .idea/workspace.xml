@@ -4,28 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="Initial commit: file structure set-up and connected to local RDB server&#10;&#10;Login screen complete and properly displaying&#10;&#10;README file created&#10;&#10;TODO's in place for unfilled JavaDocs">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/resourceBundles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/C195-DLong.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/JDBC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/Queries.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/languages/loginRB.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/languages/loginRB_en.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/languages/loginRB_fr.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/schedulerMax.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utlities/AlertUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utlities/ValidationUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/LoginForm.fxml" afterDir="false" />
+    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="feat: &quot;Login&quot; form now complete with credentials validation &amp; changes scene to &quot;MainForm&quot;&#10;&#10;&quot;MainForm&quot; FXML and controller files created/connected&#10;&#10;&quot;SceneUtils&quot; class created for scene changing methods&#10;&#10;&quot;Logout&quot; button on &quot;MainForm&quot; now functional&#10;&#10;&#10;&#10;&#10;&#10;TODO's &amp; FIXME's in place">
+      <change afterPath="$PROJECT_DIR$/src/controller/AddCustomerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/MainFormController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utlities/SceneUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/AddCustomer.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/JDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/Queries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/Queries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/languages/loginRB_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/languages/loginRB_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/languages/loginRB_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/languages/loginRB_fr.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/schedulerMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/schedulerMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utlities/AlertUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/AlertUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utlities/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/ValidationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginForm.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,18 +46,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/david/IdeaProjects/C482-DLong",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.language"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/david/IdeaProjects/C195-DLong&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\david\IdeaProjects\C195-DLong\src\Languages" />
@@ -88,7 +82,30 @@
       <option name="presentableId" value="Default" />
       <updated>1682967194661</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial commit: file structure set-up and connected to local RDB server&#10;&#10;Login GUI screen complete and properly displaying EN &amp; FR&#10;&#10;&quot;ValidationUtils&quot; &amp; &quot;AlertUtils&quot; classes created in Utilities package&#10;&#10;Form validation started on Login form, alerts displaying in EN &amp; FR&#10;&#10;README file started&#10;&#10;TODO's &amp; FIXME's in place">
+      <created>1683403298551</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1683403298551</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit: file structure set-up and connected to local RDB server&#10;&#10;Login GUI screen complete and properly displaying EN &amp; FR&#10;&#10;&quot;ValidationUtils&quot; &amp; &quot;AlertUtils&quot; classes created in Utilities package&#10;&#10;Form validation started on Login form, alerts displaying in EN &amp; FR&#10;&#10;README file started&#10;&#10;TODO's &amp; FIXME's in place" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit: file structure set-up and connected to local RDB server&#10;&#10;Login GUI screen complete and properly displaying EN &amp; FR&#10;&#10;&quot;ValidationUtils&quot; &amp; &quot;AlertUtils&quot; classes created in Utilities package&#10;&#10;Form validation started on Login form, alerts displaying in EN &amp; FR&#10;&#10;README file started&#10;&#10;TODO's &amp; FIXME's in place" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

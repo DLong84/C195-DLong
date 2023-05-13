@@ -1,8 +1,6 @@
 package DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 
 public class JDBC {
@@ -14,11 +12,11 @@ public class JDBC {
         private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
         private static final String userName = "sqlUser"; // Username
         private static String password = "Passw0rd!"; // Password
-        private static Connection connection = null;  // Connection Interface
-        private static PreparedStatement preparedStatement; //FIXME????
+        public static Connection connection = null;  // Connection Interface
+        public static PreparedStatement preparedStatement; //FIXME????
 
     /**
-     * TODO
+     * This method establishes the connection to the database.
      */
     public static void openConnection()
     {
@@ -35,12 +33,12 @@ public class JDBC {
     }
 
     /**
-     * TODO
+     * The method closes the connection to the database.
      */
     public static void closeConnection() {
         try {
             connection.close();
-            System.out.println("Connection closed!");
+            System.out.println("Connection closed");
         }
         catch(Exception e)
         {
@@ -48,6 +46,29 @@ public class JDBC {
         }
     }
 
+    /**
+     * This method takes in a username and password, then executes a query which returns a matching ID object from the
+     * USERS table. If there is no user with same username and password, it returns a null object.
+     * @param userName The user's username
+     * @param passWord The user's password
+     * @return If it exists, the user's ID, otherwise null.
+     * @throws SQLException
+     */
+    public static Object getUserId (String userName, String passWord) throws SQLException {
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(Queries.userIdQuery);
+        ps.setString(1, userName);
+        ps.setString(2, passWord);
+
+        ResultSet result = ps.executeQuery();
+
+        Object userId = null;
+        if (result.next()) {
+            userId = result.getObject(1);
+        }
+
+        return userId;
+    }
 
 
 

@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,14 +10,18 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import utlities.AlertUtils;
+import utlities.SceneUtils;
 import utlities.ValidationUtils;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * TODO
+ * This class is used to manage the flow of data and view of the application's Login GUI form.
+ * @author David Long
  */
 public class LoginController implements Initializable {
 
@@ -49,53 +54,75 @@ public class LoginController implements Initializable {
     private Label loginUserLbl;
 
     /**
+     * Object used to pass the value of the current user's Id FIXME??
+     */
+    public static Object currentUserId = null;
+
+    /**
      * ResourceBundle object used to initialize the form with internationalized content
      */
     ResourceBundle rb_languages; //FIXME Delete????
 
     /**
-     * This method loads the current form's GUI elements and obtains the current default locale accordingly
-     * @param url The location of the controller's .fxml file.
-     * @param rb_languages The locale-specific resources for the controller's objects.
+     * This method loads the current form's GUI elements and obtains the current default locale accordingly.
+     * @param url The location of the controller's .fxml file
+     * @param rb_languages The locale-specific resources for the controller's objects
      */
     @Override
     public void initialize (URL url, ResourceBundle rb_languages) {
         System.out.println("Login form initialized");
 
+        // Load form with the properties file of the corresponding default locale's language
         ResourceBundle.getBundle("languages.loginRB", Locale.getDefault());
 
-        //loginBtn.setText(rb_french.getString("Login")); FIXME
+        // Set displayed timezone
+        loginTimeZoneLbl.setText(ValidationUtils.getTimezone());
 
     }
 
     /**
-     * Checks user data pulled from text fields for validation against "Users" table in the database
-     */
-    void checkLogin() {
-        //TODO
-    }
-
-    /**
-     * TODO
+     * This method checks the user's login credentials with "getUserId" method for existence in the database. Upon
+     * validation, it assigns the user's Id to a variable then it calls the "toMainForm" method.
      * @param actionEvent "Login" button click
+     * @throws SQLException TODO
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     @FXML
-    void onActionLogin(ActionEvent actionEvent) {
-
-        if (ValidationUtils.fieldIsEmpty(loginUserFld, AlertUtils.rb_languages.getString("Username"))) {
+    void onActionLogin(ActionEvent actionEvent) throws SQLException, IOException {
+        // Check for empty text fields
+        if (ValidationUtils.loginIsEmpty(loginUserFld, AlertUtils.rb_languages.getString("Username"))) {
+            return;
+        }
+        if (ValidationUtils.loginIsEmpty(loginPassFld, AlertUtils.rb_languages.getString("Password"))) {
             return;
         }
 
-        if (ValidationUtils.fieldIsEmpty(loginPassFld, AlertUtils.rb_languages.getString("Password"))) {
-            return;
+        // Assign the user's ID object to the static variable
+        currentUserId = JDBC.getUserId(loginUserFld.getText(), loginPassFld.getText());
+
+        // Login credentials check
+        if (currentUserId == null) {
+            AlertUtils.popCredentialsAlert();
         }
+        else {
+            System.out.println("User with ID: " + currentUserId + " validated");
+            SceneUtils.toMainForm(loginBtn);
+        }
+
     }
 
     /**
-     * TODO
+     * This method throws a confirmation dialog box and, if confirmed, closes database connection and exits the
+     * application
      * @param actionEvent "Exit" button click
      */
     @FXML
     void onActionLoginExit(ActionEvent actionEvent) {
+
+        if (AlertUtils.loginExitAlert() == true) {
+            JDBC.closeConnection(); // Close the connection
+            System.exit(0);
+        }
+
     }
 }
