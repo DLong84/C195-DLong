@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
  * @author David Long
  */
 public class AddCustomerController implements Initializable {
+
+    // Elements of GUI form
     @FXML
     private ComboBox<?> addCountryComboBox;
 
