@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="651.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
+<AnchorPane prefHeight="651.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddUpdateCustomerController">
    <children>
       <AnchorPane layoutX="160.0" layoutY="14.0" prefHeight="56.0" prefWidth="373.0">
          <children>
-            <Label layoutX="67.0" layoutY="5.0" text="Add Customer" textAlignment="CENTER" underline="true">
+            <Label layoutX="105.0" layoutY="5.0" text="Customer" textAlignment="CENTER" underline="true">
                <font>
                   <Font name="Arial Black" size="31.0" />
                </font>
@@ -71,23 +71,23 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="addCustIDFld" disable="true" prefHeight="25.0" prefWidth="37.0" promptText="Auto-Generated" GridPane.columnIndex="1" />
-            <TextField fx:id="addCustNameFld" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="addCustAddressFld" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="addCountryComboBox" onAction="#onCountrySelection" prefWidth="150.0" promptText="Make a selection" visibleRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="addStateComboBox" prefHeight="25.0" prefWidth="181.0" promptText="Make a selection" visibleRowCount="8" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="addCustPostalFld" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="addCustPhoneFld" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="custIDFld" disable="true" prefHeight="25.0" prefWidth="37.0" promptText="Auto-Generated" GridPane.columnIndex="1" />
+            <TextField fx:id="custNameFld" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="custAddressFld" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="custCountryComboBox" onAction="#onCountrySelection" prefWidth="150.0" promptText="Make a selection" visibleRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="custStateComboBox" prefHeight="25.0" prefWidth="181.0" promptText="Make a selection" visibleRowCount="8" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="custPostalFld" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="custPhoneFld" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <AnchorPane layoutX="323.0" layoutY="565.0" prefHeight="72.0" prefWidth="150.0">
          <children>
-            <Button fx:id="addCustSaveBtn" layoutX="167.0" layoutY="13.0" mnemonicParsing="false" onAction="#onActionSaveNewCustomer" prefHeight="46.0" prefWidth="74.0" text="Save">
+            <Button fx:id="custSaveBtn" layoutX="167.0" layoutY="13.0" mnemonicParsing="false" onAction="#onActionSaveCustomer" prefHeight="46.0" prefWidth="74.0" text="Save">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="addCustCancelBtn" layoutX="259.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionAddCustCancel" prefHeight="36.0" prefWidth="74.0" text="Cancel" />
+            <Button fx:id="custCancelBtn" layoutX="259.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionCancelCustomer" prefHeight="36.0" prefWidth="74.0" text="Cancel" />
          </children>
       </AnchorPane>
    </children>

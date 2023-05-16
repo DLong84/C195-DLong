@@ -46,4 +46,13 @@ public class SceneUtils {
         mainStage.show();
     }
 
+    public static void toCustomerForm (Button clickedButton) throws IOException {
+        Parent root = FXMLLoader.load(SceneUtils.class.getResource("/view/AddUpdateCustomer.fxml"));
+        Stage stage = (Stage) clickedButton.getScene().getWindow();
+        Scene scene = new Scene(root, 693, 651);
+        stage.setTitle("Customer Form");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

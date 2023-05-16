@@ -11,6 +11,7 @@ public class Customer {
     private String country;
     private String state;
     private String postalCode;
+    private String phone;
     private int divisionId;
 
     /**
@@ -21,14 +22,20 @@ public class Customer {
      * @param address the customer's Address
      * @param country the customer's Country
      * @param state the customer's State
+     * @param postalCode the customer's Postal Code
+     * @param phone the customer's Phone number
      * @param divisionId the customer's Division ID
      */
-    public Customer(int id, String name, String address, String country, String state, int divisionId) {
+    public Customer(int id, String name, String address, String country, String state, String postalCode, String phone,
+                    int divisionId)
+    {
         this.id = id;
         this.name = name;
         this.address = address;
         this.country = country;
         this.state = state;
+        this.postalCode = postalCode;
+        this.phone = phone;
         this.divisionId = divisionId;
     }
 
@@ -55,6 +62,10 @@ public class Customer {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setDivisionId(int divisionId) {
@@ -84,6 +95,10 @@ public class Customer {
 
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public int getDivisionId() {

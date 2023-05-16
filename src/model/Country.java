@@ -11,7 +11,7 @@ public class Country {
     /**
      * This is the Country constructor.
      * @param id the country's ID
-     * @param country the country's name
+     * @param country the country's Name
      */
     public Country(int id, String country) {
         this.id = id;

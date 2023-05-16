@@ -55,8 +55,9 @@ public class JDBC {
      * @throws SQLException
      */
     public static Object getUserId (String userName, String passWord) throws SQLException {
+        String query = "SELECT User_ID FROM USERS WHERE User_Name=? AND Password=?";
 
-        PreparedStatement ps = JDBC.connection.prepareStatement(Queries.userIdQuery);
+        PreparedStatement ps = JDBC.connection.prepareStatement(query);
         ps.setString(1, userName);
         ps.setString(2, passWord);
 

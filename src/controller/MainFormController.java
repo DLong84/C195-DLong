@@ -12,6 +12,7 @@ import utlities.SceneUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -79,8 +80,8 @@ public class MainFormController  implements Initializable {
     }
 
     @FXML
-    void onActionAddCustomer(ActionEvent event) {
-
+    void onActionAddCustomer(ActionEvent event) throws IOException {
+        SceneUtils.toCustomerForm(addCustomerBtn);
     }
 
     @FXML
@@ -89,7 +90,7 @@ public class MainFormController  implements Initializable {
     }
 
     @FXML
-    void onActionDeleteCustomer(ActionEvent event) {
+    void onActionDeleteCustomer(ActionEvent event) throws SQLException {
 
     }
 
