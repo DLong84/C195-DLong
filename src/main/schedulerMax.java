@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utlities.SceneUtils;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -28,13 +29,20 @@ public class schedulerMax extends Application {
     @Override
     public void start(Stage mainStage) throws IOException {
         // ResourceBundle object
-        ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB");
+        //ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB");
 
-        mainStage.setResizable(false);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginForm.fxml"), rb_languages); //FIXME??
+        //mainStage.setResizable(false);
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginForm.fxml"), rb_languages); //FIXME??
+        //Parent root = loader.load();
+        //mainStage.setTitle(rb_languages.getString("loginFormHeader"));
+        //mainStage.setScene(new Scene(root, 600, 449));
+        //mainStage.show();
+
+        // FIXME DELETE BEFORE PROJECT SUBMISSION!!!!!!
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainForm.fxml"));
         Parent root = loader.load();
-        mainStage.setTitle(rb_languages.getString("loginFormHeader"));
-        mainStage.setScene(new Scene(root, 600, 449));
+        mainStage.setTitle("SchedulerMax");
+        mainStage.setScene(new Scene(root, 1296, 823));
         mainStage.show();
 
 

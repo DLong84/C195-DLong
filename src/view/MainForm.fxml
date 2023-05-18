@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="906.0" prefWidth="1292.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainFormController">
+<AnchorPane prefHeight="823.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="538.0" layoutY="27.0" stroke="BLACK" strokeType="INSIDE" width="218.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="506.0" layoutY="25.0" prefHeight="40.0" prefWidth="281.0" text="SchedulerMax" textAlignment="CENTER">
@@ -40,11 +40,11 @@
       <TableView fx:id="mainCustomersTable" layoutX="66.0" layoutY="134.0" prefHeight="245.0" prefWidth="762.0">
          <columns>
             <TableColumn fx:id="custIdCol" prefWidth="52.0" text="ID" />
-            <TableColumn fx:id="custNameCol" prefWidth="119.0" text="Name" />
-            <TableColumn fx:id="custAddressCol" prefWidth="180.0" text="Address" />
-            <TableColumn fx:id="custStateProvCol" prefWidth="115.0" text="State/Province" />
-            <TableColumn fx:id="custPostalCol" prefWidth="126.0" text="Postal Code" />
-            <TableColumn fx:id="custPhoneCol" prefWidth="169.0" text="Phone Number" />
+            <TableColumn fx:id="custNameCol" prefWidth="130.0" text="Name" />
+            <TableColumn fx:id="custAddressCol" prefWidth="169.0" text="Address" />
+            <TableColumn fx:id="custStateProvCol" prefWidth="172.0" text="State/Province" />
+            <TableColumn fx:id="custPostalCol" prefWidth="108.0" text="Postal Code" />
+            <TableColumn fx:id="custPhoneCol" prefWidth="130.0" text="Phone Number" />
          </columns></TableView>
       <TextFlow accessibleRole="BUTTON" layoutX="263.0" layoutY="379.0" prefHeight="48.0" prefWidth="563.0" textAlignment="RIGHT">
          <children>
@@ -70,21 +70,21 @@
       </RadioButton>
       <RadioButton fx:id="monthViewRBtn" layoutX="551.0" layoutY="460.0" mnemonicParsing="false" onAction="#onViewMonthAppts" text="Current Month" toggleGroup="$apptFilterTG" />
       <RadioButton fx:id="weekViewRBtn" layoutX="689.0" layoutY="460.0" mnemonicParsing="false" onAction="#onViewWeekAppts" text="Current Week" toggleGroup="$apptFilterTG" />
-      <TableView fx:id="mainApptsTable" layoutX="66.0" layoutY="482.0" prefHeight="329.0" prefWidth="1157.0">
+      <TableView fx:id="mainApptsTable" layoutX="66.0" layoutY="482.0" prefHeight="255.0" prefWidth="1157.0">
          <columns>
-            <TableColumn fx:id="apptIdCol" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="apptTitleCol" prefWidth="75.0" text="Title" />
-            <TableColumn fx:id="apptDescripCol" prefWidth="154.0" text="Description" />
-            <TableColumn fx:id="apptLocationCol" prefWidth="127.0" text="Location" />
-            <TableColumn fx:id="apptTypeCol" prefWidth="145.0" text="Type" />
-            <TableColumn fx:id="apptStartDTCol" prefWidth="152.0" text="Start Date/Time" />
-            <TableColumn fx:id="apptEndDTCol" prefWidth="133.0" text="End Date/Time" />
-            <TableColumn fx:id="apptContactCol" prefWidth="162.0" text="Contact" />
+            <TableColumn fx:id="apptIdCol" prefWidth="43.0" text="ID" />
+            <TableColumn fx:id="apptTitleCol" prefWidth="136.0" text="Title" />
+            <TableColumn fx:id="apptDescripCol" prefWidth="149.0" text="Description" />
+            <TableColumn fx:id="apptLocationCol" prefWidth="139.0" text="Location" />
+            <TableColumn fx:id="apptTypeCol" prefWidth="132.0" text="Type" />
+            <TableColumn fx:id="apptStartDTCol" prefWidth="151.0" text="Start Date/Time" />
+            <TableColumn fx:id="apptEndDTCol" prefWidth="141.0" text="End Date/Time" />
+            <TableColumn fx:id="apptContactCol" prefWidth="132.0" text="Contact" />
             <TableColumn fx:id="apptCustIdCol" prefWidth="76.0" text="Customer ID" />
             <TableColumn fx:id="apptUserIdCol" prefWidth="57.0" text="User ID" />
          </columns></TableView>
       <Separator layoutX="1223.0" layoutY="482.0" orientation="VERTICAL" prefHeight="329.0" prefWidth="73.0" />
-      <TextFlow accessibleRole="BUTTON" layoutX="516.0" layoutY="811.0" prefHeight="48.0" prefWidth="563.0" textAlignment="RIGHT">
+      <TextFlow accessibleRole="BUTTON" layoutX="516.0" layoutY="737.0" prefHeight="48.0" prefWidth="563.0" textAlignment="RIGHT">
          <children>
             <Button fx:id="addApptBtn" mnemonicParsing="false" onAction="#onActionAddAppt" prefHeight="36.0" prefWidth="74.0" text="Add" translateX="-200.0" />
             <Button fx:id="updateApptBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionUpdateAppt" prefHeight="36.0" prefWidth="74.0" text="Update" translateX="-35.0" />

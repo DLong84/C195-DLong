@@ -1,18 +1,21 @@
 package controller;
 
+import DAO.AppointmentDAO;
+import DAO.CustomerDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.Appointment;
+import model.Customer;
 import utlities.AlertUtils;
 import utlities.SceneUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -32,7 +35,55 @@ public class MainFormController  implements Initializable {
     private RadioButton allApptsRBtn;
 
     @FXML
+    private TableColumn<Appointment, String> apptContactCol;
+
+    @FXML
+    private TableColumn<Appointment, Integer> apptCustIdCol;
+
+    @FXML
+    private TableColumn<Appointment, String> apptDescripCol;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> apptEndDTCol;
+
+    @FXML
     private ToggleGroup apptFilterTG;
+
+    @FXML
+    private TableColumn<Appointment, Integer> apptIdCol;
+
+    @FXML
+    private TableColumn<Appointment, String> apptLocationCol;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> apptStartDTCol;
+
+    @FXML
+    private TableColumn<Appointment, String> apptTitleCol;
+
+    @FXML
+    private TableColumn<Appointment, String> apptTypeCol;
+
+    @FXML
+    private TableColumn<Appointment, Integer> apptUserIdCol;
+
+    @FXML
+    private TableColumn<Customer, String> custAddressCol;
+
+    @FXML
+    private TableColumn<Customer, Integer> custIdCol;
+
+    @FXML
+    private TableColumn<Customer, String> custNameCol;
+
+    @FXML
+    private TableColumn<Customer, String> custPhoneCol;
+
+    @FXML
+    private TableColumn<Customer, String> custPostalCol;
+
+    @FXML
+    private TableColumn<Customer, String> custStateProvCol;
 
     @FXML
     private Button deleteAppt;
@@ -44,10 +95,10 @@ public class MainFormController  implements Initializable {
     private Button logoutBtn;
 
     @FXML
-    private TableView<?> mainApptsTable;
+    private TableView<Appointment> mainApptsTable;
 
     @FXML
-    private TableView<?> mainCustomersTable;
+    private TableView<Customer> mainCustomersTable;
 
     @FXML
     private Button mainReportsBtn;
@@ -71,6 +122,36 @@ public class MainFormController  implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set tableview with all customers in database
+        try {
+            mainCustomersTable.setItems(CustomerDAO.getAllCustomers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        custIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        custNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        custAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        custStateProvCol.setCellValueFactory(new PropertyValueFactory<>("state"));
+        custPostalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+        // Set tableview with all appointments in database relevant to current user
+        try {
+            mainApptsTable.setItems(AppointmentDAO.getAllAppts());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptDescripCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        apptStartDTCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptEndDTCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
         System.out.println("Main Form initialized");
     }
 

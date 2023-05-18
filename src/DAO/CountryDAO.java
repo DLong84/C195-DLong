@@ -39,19 +39,22 @@ public class CountryDAO {
     }
 
     /**
-     * TODO
-     * @return
+     * This method retrieves all Country information currently in the database and instantiates a new Country object for
+     * every record that is returned from the query. It then obtains the Country's name, which is added to the returned
+     * observable list.
+     * @return the list of countries by name
      * @throws SQLException
      */
     public static ObservableList<String> getAllCountryNames () throws SQLException {
         ObservableList<String> countries = FXCollections.observableArrayList();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
+        ResultSet rs = ps.executeQuery();
 
-        ResultSet resultSet = ps.executeQuery();
-        while (resultSet.next()) {
-            Country country = new Country(resultSet.getInt("Country_Id"),
-                    resultSet.getString("Country"));
+        // Create a Country object for every record returned and add its name to the list
+        while (rs.next()) {
+            Country country = new Country(rs.getInt("Country_Id"),
+                    rs.getString("Country"));
             String countryName = country.getCountry();
             countries.add(countryName);
         }

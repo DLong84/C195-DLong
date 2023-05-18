@@ -23,7 +23,7 @@ public class SceneUtils {
     public static void toMainForm (Button clickedButton) throws IOException {
         Parent root = FXMLLoader.load(SceneUtils.class.getResource("/view/MainForm.fxml"));
         Stage stage = (Stage) clickedButton.getScene().getWindow();
-        Scene scene = new Scene(root, 1292, 906);
+        Scene scene = new Scene(root, 1296, 823);
         stage.setTitle("SchedulerMax");
         stage.setScene(scene);
         stage.show();

@@ -28,8 +28,8 @@ public class DivisionDAO {
         ObservableList<String> divisions = FXCollections.observableArrayList();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
-
         ResultSet resultSet = ps.executeQuery();
+
         while (resultSet.next()) {
             Division division = new Division(resultSet.getInt("Division_ID"),
                     resultSet.getString("Division"), resultSet.getInt("Country_ID"));
@@ -48,11 +48,12 @@ public class DivisionDAO {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
+        ResultSet rs = ps.executeQuery();
 
-        ResultSet resultSet = ps.executeQuery();
-        while (resultSet.next()) {
-            Division division = new Division(resultSet.getInt("Division_ID"),
-                    resultSet.getString("Division"), resultSet.getInt("Country_ID"));
+        // Create a Division object for every record returned and add it to the list
+        while (rs.next()) {
+            Division division = new Division(rs.getInt("Division_ID"), rs.getString("Division"),
+                    rs.getInt("Country_ID"));
 
             divisions.add(division);
         }

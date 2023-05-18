@@ -12,12 +12,13 @@ public class Appointment {
     private String title;
     private String description;
     private String location;
+    private String type;
     private String contact; //FIXME to int/contact id???
     private LocalDateTime start;
     private LocalDateTime end;
     private int customerId;
     private int userId;
-    private int contactId;
+    //private int contactId; //FIXME REMOVE??
 
     /**
      * This is the Appointment constructor.
@@ -25,26 +26,26 @@ public class Appointment {
      * @param title the appointment's title
      * @param description the appointment's description
      * @param location the appointment's location
+     * @param type the appointment's type
      * @param contact the appointment's contact
      * @param start the appointment's start date and time
      * @param end the appointment's end date and time
      * @param customerId the appointment's Customer ID
      * @param userId the appointment's User ID
-     * @param contactId the appointment's Contact ID
      */
-    public Appointment(int id, String title, String description, String location, String contact, LocalDateTime start,
-                       LocalDateTime end, int customerId, int userId, int contactId)
+    public Appointment(int id, String title, String description, String location, String type, String contact, LocalDateTime start,
+                       LocalDateTime end, int customerId, int userId)
     {
         this.id = id;
         this.title = title;
         this.description = description;
         this.location = location;
+        this.type = type;
         this.contact = contact;
         this.start = start;
         this.end = end;
         this.customerId = customerId;
         this.userId = userId;
-        this.contactId = contactId;
     }
 
     // Setters for Appointment attributes
@@ -62,6 +63,10 @@ public class Appointment {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setContact(String contact) {
@@ -84,9 +89,6 @@ public class Appointment {
         this.userId = userId;
     }
 
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
-    }
 
     // Getters for Appointment attributes
     public int getId() {
@@ -103,6 +105,10 @@ public class Appointment {
 
     public String getLocation() {
         return location;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getContact() {
@@ -125,7 +131,4 @@ public class Appointment {
         return userId;
     }
 
-    public int getContactId() {
-        return contactId;
-    }
 }

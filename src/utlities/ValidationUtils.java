@@ -49,7 +49,7 @@ public class ValidationUtils {
 
     /**
      * This method obtains the current system's timezone "ZoneId" and returns it as a String
-     * @return The ZoneId (String)
+     * @return the ZoneId (String)
      */
     public static String getTimezone() {
         String timezone = ZoneId.systemDefault().getId();
