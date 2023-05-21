@@ -2,6 +2,8 @@ package utlities;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import model.Appointment;
+import model.Customer;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -30,6 +32,20 @@ public class AlertUtils {
 
         alert.showAndWait();
         return;
+    }
+
+    /**
+     * This method creates an error alert dialog box for when an object in a tableview is not selected for removal or
+     * modification.
+     * @param objectType the type of object that the user is attempting to modify or delete
+     * @param action the action the user is attempting to perform
+     */
+    public static void noSelectionAlert(String objectType, String action) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("No " + objectType + " Selected");
+        alert.setHeaderText("No " + objectType + " Selected!");
+        alert.setContentText("Please select the " + objectType.toLowerCase() + " to " + action);
+        alert.showAndWait();
     }
 
     /**
@@ -147,5 +163,57 @@ public class AlertUtils {
             return false;
         }
     }
+
+    /**
+     * TODO
+     * @param objectType
+     * @return
+     */
+    public static boolean deleteWarning(String objectType) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText("Are you sure you want to delete this " + objectType + "?");
+
+        // Create and set "Yes" and "No" buttons
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Return true if "Yes" button is clicked
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == yesButton) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * TODO
+     * @param selectedCustomer
+     */
+    public static void customerRemovedAlert(Customer selectedCustomer) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Customer Removed");
+        alert.setHeaderText("Customer Removed");
+        alert.setContentText(selectedCustomer.getName() + " successfully removed");
+
+        alert.showAndWait();
+    }
+
+    /**
+     * TODO
+     * @param selectedAppointment
+     */
+    public static void apptCanceledAlert(Appointment selectedAppointment) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Appointment Canceled");
+        alert.setHeaderText("Appointment Canceled");
+        alert.setContentText("Appointment having ID: " + selectedAppointment.getId() + ", "  + selectedAppointment.getType()
+            + " successfully canceled");
+
+        alert.showAndWait();
+    }
+
 
 }

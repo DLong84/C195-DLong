@@ -19,7 +19,7 @@ public class CountryDAO {
     private static final String selectAllQuery = "SELECT * FROM COUNTRIES";
 
     /**
-     * TODO
+     * TODO.....REMOVE???
      * @return
      * @throws SQLException
      */
@@ -39,8 +39,8 @@ public class CountryDAO {
     }
 
     /**
-     * This method retrieves all Country information currently in the database and instantiates a new Country object for
-     * every record that is returned from the query. It then obtains the Country's name, which is added to the returned
+     * This method retrieves all country information currently in the database and instantiates a new country object for
+     * every record that is returned from the query. It then obtains the country's name, which is added to the returned
      * observable list.
      * @return the list of countries by name
      * @throws SQLException
@@ -62,9 +62,10 @@ public class CountryDAO {
     }
 
     /**
-     * This method retrieves the ID of the currently selected country in a ComboBox from the database.
-     * @param selectedCountry
-     * @return the Country's ID
+     * This method retrieves the ID of the currently selected country from the database, based on the selection in a
+     * ComboBox.
+     * @param selectedCountry selected country from the ComboBox
+     * @return the country's ID
      * @throws SQLException
      */
     public static int getCountryId(String selectedCountry) throws SQLException {

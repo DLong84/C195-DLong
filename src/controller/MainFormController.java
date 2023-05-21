@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -27,93 +28,74 @@ public class MainFormController  implements Initializable {
     // Elements of GUI form
     @FXML
     private Button addApptBtn;
-
     @FXML
     private Button addCustomerBtn;
-
     @FXML
     private RadioButton allApptsRBtn;
-
     @FXML
     private TableColumn<Appointment, String> apptContactCol;
-
     @FXML
     private TableColumn<Appointment, Integer> apptCustIdCol;
-
     @FXML
     private TableColumn<Appointment, String> apptDescripCol;
-
     @FXML
     private TableColumn<Appointment, LocalDateTime> apptEndDTCol;
-
     @FXML
     private ToggleGroup apptFilterTG;
-
     @FXML
     private TableColumn<Appointment, Integer> apptIdCol;
-
     @FXML
     private TableColumn<Appointment, String> apptLocationCol;
-
     @FXML
     private TableColumn<Appointment, LocalDateTime> apptStartDTCol;
-
     @FXML
     private TableColumn<Appointment, String> apptTitleCol;
-
     @FXML
     private TableColumn<Appointment, String> apptTypeCol;
-
     @FXML
     private TableColumn<Appointment, Integer> apptUserIdCol;
-
     @FXML
     private TableColumn<Customer, String> custAddressCol;
-
     @FXML
     private TableColumn<Customer, Integer> custIdCol;
-
     @FXML
     private TableColumn<Customer, String> custNameCol;
-
     @FXML
     private TableColumn<Customer, String> custPhoneCol;
-
     @FXML
     private TableColumn<Customer, String> custPostalCol;
-
     @FXML
     private TableColumn<Customer, String> custStateProvCol;
-
     @FXML
     private Button deleteAppt;
-
     @FXML
     private Button deleteCustomer;
-
     @FXML
     private Button logoutBtn;
-
     @FXML
     private TableView<Appointment> mainApptsTable;
-
     @FXML
     private TableView<Customer> mainCustomersTable;
-
     @FXML
     private Button mainReportsBtn;
-
     @FXML
     private RadioButton monthViewRBtn;
-
     @FXML
     private Button updateApptBtn;
-
     @FXML
     private Button updateCustomerBtn;
-
     @FXML
     private RadioButton weekViewRBtn;
+
+    /**
+     * Selected customer object from customers tableview.
+     */
+    public static Customer selectedCustomer;
+
+    /**
+     * Selected appointment object from appointments tableview.
+     */
+    public static Appointment selectedAppt;
 
     /**
      * TODO
@@ -155,10 +137,7 @@ public class MainFormController  implements Initializable {
         System.out.println("Main Form initialized");
     }
 
-    @FXML
-    void onActionAddAppt(ActionEvent event) {
 
-    }
 
     @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
@@ -166,12 +145,104 @@ public class MainFormController  implements Initializable {
     }
 
     @FXML
-    void onActionDeleteAppt(ActionEvent event) {
+    void onActionUpdateCustomer(ActionEvent event) {
+        // Assign currently selected customer to "selectedCustomer" object
+        selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
+
+        selectedCustomer = null;
+    }
+
+    /**
+     * TODO
+     * @param event customer "Delete" button click
+     * @throws SQLException
+     */
+    @FXML
+    void onActionDeleteCustomer(ActionEvent event) throws SQLException {
+        try {
+            // Assign currently selected customer to "selectedCustomer" object
+            selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
+
+            // Throw exception if no customer is selected
+            if(selectedCustomer == null) {
+                throw new NullPointerException();
+            }
+            else{
+                // Customer removal confirmation
+                if (AlertUtils.deleteWarning("customer")) {
+                    // Remove the customer
+                    CustomerDAO.deleteCustomer(selectedCustomer);
+                }
+            }
+        }
+        catch (NullPointerException e) {
+            AlertUtils.noSelectionAlert("Customer", "delete");
+        }
+        selectedCustomer = null;
+    }
+
+    @FXML
+    void onActionAddAppt(ActionEvent event) {
+        // TODO
+
 
     }
 
     @FXML
-    void onActionDeleteCustomer(ActionEvent event) throws SQLException {
+    void onActionUpdateAppt(ActionEvent event) {
+        // TODO
+        selectedAppt = mainApptsTable.getSelectionModel().getSelectedItem();
+    }
+
+    /**
+     * TODO
+     * @param event
+     * @throws SQLException
+     */
+    @FXML
+    void onActionDeleteAppt(ActionEvent event) throws SQLException {
+
+        try {
+            // Assign currently selected appointment to "selectedAppt" object
+            selectedAppt = mainApptsTable.getSelectionModel().getSelectedItem();
+
+            // Throw exception if no appointment is selected
+            if(selectedAppt == null) {
+                throw new NullPointerException();
+            }
+            else{
+                // Appointment removal confirmation
+                if (AlertUtils.deleteWarning("appointment")) {
+                    // Remove the appointment
+                    AppointmentDAO.deleteAppt(selectedAppt);
+                }
+            }
+        }
+        catch (NullPointerException e) {
+            AlertUtils.noSelectionAlert("Appointment", "delete");
+        }
+
+
+        selectedAppt = null;
+    }
+
+    @FXML
+    void onViewAllAppts(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onViewMonthAppts(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onViewWeekAppts(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionShowReports(ActionEvent event) {
 
     }
 
@@ -192,36 +263,6 @@ public class MainFormController  implements Initializable {
             LoginController.currentUserId = null;
         }
         System.out.println(LoginController.currentUserId);
-    }
-
-    @FXML
-    void onActionShowReports(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionUpdateAppt(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionUpdateCustomer(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onViewAllAppts(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onViewMonthAppts(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onViewWeekAppts(ActionEvent event) {
-
     }
 
 }

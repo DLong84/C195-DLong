@@ -40,8 +40,10 @@ public class DivisionDAO {
     }
 
     /**
-     * TODO
-     * @return
+     * This method retrieves all first level division information currently in the database and instantiates a new division
+     * object for every record that is returned from the query. All division objects are added to an observable list,
+     * the list is then returned.
+     * @return the list of divisions
      * @throws SQLException
      */
     public static ObservableList<Division> getAllDivisionObjects () throws SQLException {

@@ -29,31 +29,26 @@ public class AddUpdateCustomerController implements Initializable {
     // Elements of GUI form
     @FXML
     private TextField custAddressFld;
-
     @FXML
     private Button custCancelBtn;
-
     @FXML
     private ComboBox<String> custCountryComboBox;
-
     @FXML
     private TextField custIDFld;
-
     @FXML
     private TextField custNameFld;
-
     @FXML
     private TextField custPhoneFld;
-
     @FXML
     private TextField custPostalFld;
-
     @FXML
     private Button custSaveBtn;
-
     @FXML
     private ComboBox<String> custStateComboBox;
 
+    /**
+     * Selected country from country ComboBox.
+     */
     public static String selectedCountry;
 
     /**
