@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="feat: All customers and appointments now showing in respective tableviews on Main form&#10;&#10;-CustomerDAO &amp; AppointmentDAO classes created w/ database methods&#10;&#10;-Login form disabled for testing purposes&#10;&#10;TODO's &amp; FIXME's in place">
+    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="feat: Customer &amp; Appointment &quot;delete&quot; buttons now functional w/ alerts&#10;&#10;-Comments added to various methods and class variables&#10;&#10;TODO's &amp; FIXME's in place">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/AppointmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/AppointmentDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/CountryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/CountryDAO.java" afterDir="false" />
@@ -13,6 +13,7 @@
       <change beforePath="$PROJECT_DIR$/src/controller/AddUpdateCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddUpdateCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utlities/AlertUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/AlertUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utlities/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/ValidationUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684440378814</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: Customer &amp; Appointment &quot;delete&quot; buttons now functional w/ alerts&#10;&#10;-Comments added to various methods and class variables&#10;&#10;TODO's &amp; FIXME's in place">
+      <created>1684694328447</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1684694328447</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,7 +139,8 @@
     <MESSAGE value="feat: All &quot;model&quot; package classes for objects built&#10;&#10;TODO's &amp; FIXME's in place" />
     <MESSAGE value="feat: &quot;ComboBoxInterface&quot; created/&quot;filter&quot; lambda expression implemented&#10;&#10;-ComboBoxes on &quot;Customer&quot; form now fully functional&#10;&#10;-CountryDAO &amp; DivisionDAO created/implemented&#10;&#10;-Renamed Customer form FXML file &amp; controller&#10;&#10;-Cleaned up unnecessary code &amp; added explanatory comments&#10;&#10;TODO's &amp; FIXME's in place" />
     <MESSAGE value="feat: All customers and appointments now showing in respective tableviews on Main form&#10;&#10;-CustomerDAO &amp; AppointmentDAO classes created w/ database methods&#10;&#10;-Login form disabled for testing purposes&#10;&#10;TODO's &amp; FIXME's in place" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: All customers and appointments now showing in respective tableviews on Main form&#10;&#10;-CustomerDAO &amp; AppointmentDAO classes created w/ database methods&#10;&#10;-Login form disabled for testing purposes&#10;&#10;TODO's &amp; FIXME's in place" />
+    <MESSAGE value="feat: Customer &amp; Appointment &quot;delete&quot; buttons now functional w/ alerts&#10;&#10;-Comments added to various methods and class variables&#10;&#10;TODO's &amp; FIXME's in place" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Customer &amp; Appointment &quot;delete&quot; buttons now functional w/ alerts&#10;&#10;-Comments added to various methods and class variables&#10;&#10;TODO's &amp; FIXME's in place" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

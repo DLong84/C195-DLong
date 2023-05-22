@@ -22,7 +22,7 @@ public class DivisionDAO {
     /**
      * TODO.......Is this function NEEDED???
      * @return
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     public static ObservableList<String> getAllDivisionNames () throws SQLException {
         ObservableList<String> divisions = FXCollections.observableArrayList();
@@ -44,7 +44,7 @@ public class DivisionDAO {
      * object for every record that is returned from the query. All division objects are added to an observable list,
      * the list is then returned.
      * @return the list of divisions
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     public static ObservableList<Division> getAllDivisionObjects () throws SQLException {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
@@ -60,6 +60,34 @@ public class DivisionDAO {
             divisions.add(division);
         }
         return divisions;
+    }
+
+    /**
+     * This method retrieves the ID of the currently selected division from the database, based on the selection in a
+     * ComboBox.
+     * @param selectedDivision selected division from the ComboBox
+     * @return the division's ID
+     * @throws SQLException handles SQL errors
+     */
+    public static int getDivisionId(String selectedDivision) throws SQLException {
+        //selectedDivision = AddUpdateCustomerController.selectedDivision; FIXME REMOVE??
+
+        String query = "SELECT * FROM first_level_divisions WHERE Division=?";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(query);
+        ps.setString(1, selectedDivision);
+
+        ResultSet result = ps.executeQuery();
+
+        // Instantiate the "ID" variable
+        int divisionId = -1;
+
+        // If it exists, get the country's ID from the database results
+        while (result.next()) {
+            divisionId = result.getInt("Division_ID");
+        }
+
+        return divisionId;
     }
 
 }

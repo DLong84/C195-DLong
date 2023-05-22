@@ -11,6 +11,7 @@ import model.Appointment;
 import model.Customer;
 import utlities.AlertUtils;
 import utlities.SceneUtils;
+import utlities.ValidationUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -104,7 +105,7 @@ public class MainFormController  implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Set tableview with all customers in database
+        // Set tableview with all customers currently in database
         try {
             mainCustomersTable.setItems(CustomerDAO.getAllCustomers());
         } catch (SQLException e) {
@@ -117,7 +118,7 @@ public class MainFormController  implements Initializable {
         custPostalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        // Set tableview with all appointments in database relevant to current user
+        // Set tableview with all appointments currently in database
         try {
             mainApptsTable.setItems(AppointmentDAO.getAllAppts());
         } catch (SQLException e) {
@@ -155,7 +156,7 @@ public class MainFormController  implements Initializable {
     /**
      * TODO
      * @param event customer "Delete" button click
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     @FXML
     void onActionDeleteCustomer(ActionEvent event) throws SQLException {
@@ -164,8 +165,12 @@ public class MainFormController  implements Initializable {
             selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
 
             // Throw exception if no customer is selected
-            if(selectedCustomer == null) {
+            if (selectedCustomer == null) {
                 throw new NullPointerException();
+            }
+            // Check for remaining appointments
+            if (ValidationUtils.customerHasAppts(selectedCustomer)) {
+                AlertUtils.remainingApptsAlert(selectedCustomer);
             }
             else{
                 // Customer removal confirmation
@@ -197,7 +202,7 @@ public class MainFormController  implements Initializable {
     /**
      * TODO
      * @param event
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     @FXML
     void onActionDeleteAppt(ActionEvent event) throws SQLException {

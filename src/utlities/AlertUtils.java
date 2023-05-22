@@ -17,11 +17,10 @@ public class AlertUtils {
     public static ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB");
 
     /**
-     * This method creates an error alert dialog box for an empty text field.
+     * This method creates an error alert dialog box for an empty text field on the login form.
      * @param labelTxt The current GUI form's label name for the empty text field
      */
     public static void loginBlankAlert(String labelTxt) {
-
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(labelTxt + " " + rb_languages.getString("blankAlertHeader"));
         alert.setContentText(rb_languages.getString("blankAlertContent") + labelTxt);
@@ -30,6 +29,19 @@ public class AlertUtils {
         ButtonType okButton = new ButtonType(rb_languages.getString("Ok"));
         alert.getButtonTypes().setAll(okButton);
 
+        alert.showAndWait();
+        return;
+    }
+
+    /**
+     * This method creates an error alert dialog box for an empty text field.
+     * @param labelTxt the current GUI form's label name for the empty text field
+     */
+    public static void blankFldAlert(String labelTxt) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Missing Information");
+        alert.setHeaderText(labelTxt + " field is blank!");
+        alert.setContentText("Please enter a valid " + labelTxt.toLowerCase());
         alert.showAndWait();
         return;
     }
@@ -49,11 +61,23 @@ public class AlertUtils {
     }
 
     /**
+     * This method creates an error alert dialog box for when an object in a ComboBox is not selected when attempting to
+     * save or modify a customer or appointment.
+     * @param objectType the type of object that the user
+     */
+    public static void noSelectionAlert(String objectType) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("No " + objectType + " Selected");
+        alert.setHeaderText("No " + objectType + " Selected!");
+        alert.setContentText("Please select a " + objectType.toLowerCase());
+        alert.showAndWait();
+    }
+
+    /**
      * This method creates a confirmation dialog box for exiting the application.
      * @return Returns true if the "Yes" button is clicked, otherwise returns false
      */
     public static boolean loginExitAlert() {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(rb_languages.getString("Exit"));
         alert.setHeaderText(rb_languages.getString("Exit"));
@@ -78,7 +102,6 @@ public class AlertUtils {
      * This method creates an error dialog box for bad login credentials.
      */
     public static void popCredentialsAlert() {
-
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(rb_languages.getString("badCredentialsTitle"));
         alert.setHeaderText(rb_languages.getString("badCredentialsHeader"));
@@ -97,7 +120,6 @@ public class AlertUtils {
      * @return Returns true if the "Yes" button is clicked, otherwise returns false
      */
     public static boolean mainLogoutConfirm() {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logoff?");
         alert.setContentText("Are you sure you want to logoff?");
@@ -192,12 +214,24 @@ public class AlertUtils {
      * TODO
      * @param selectedCustomer
      */
+    public static void remainingApptsAlert(Customer selectedCustomer) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Customer Cannot Be Deleted");
+        alert.setHeaderText(selectedCustomer.getName() + " Has Appointments Scheduled!");
+        alert.setContentText("All appointments for " + selectedCustomer.getName() + " must be removed before attempting"
+                                + " to delete");
+        alert.showAndWait();
+    }
+
+    /**
+     * TODO
+     * @param selectedCustomer
+     */
     public static void customerRemovedAlert(Customer selectedCustomer) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Customer Removed");
         alert.setHeaderText("Customer Removed");
         alert.setContentText(selectedCustomer.getName() + " successfully removed");
-
         alert.showAndWait();
     }
 
@@ -211,9 +245,10 @@ public class AlertUtils {
         alert.setHeaderText("Appointment Canceled");
         alert.setContentText("Appointment having ID: " + selectedAppointment.getId() + ", "  + selectedAppointment.getType()
             + " successfully canceled");
-
         alert.showAndWait();
     }
+
+
 
 
 }

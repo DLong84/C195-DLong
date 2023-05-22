@@ -1,9 +1,10 @@
 package DAO;
 
+import controller.MainFormController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-import model.Customer;
+import utlities.AlertUtils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,8 +26,8 @@ public class AppointmentDAO {
             + " FROM appointments AS appt"
             + " INNER JOIN contacts AS ct ON appt.Contact_ID = ct.Contact_ID";
 
-    // Delete query for removing an appointment record from the "appointments" table
-    private static final String deleteApptQuery = "DELETE FROM appointments WHERE Appointment_ID=?";
+    // Delete statement for removing an appointment record from the "appointments" table
+    private static final String deleteApptStmt = "DELETE FROM appointments WHERE Appointment_ID=?";
 
     // FIXME MAY or MAY NOT remove!!
     private static final String getUserApptsQuery =
@@ -41,9 +42,11 @@ public class AppointmentDAO {
      * appointment object for every record that is returned from the query. All appointment objects are added to an
      * observable list, the list is then returned.
      * @return the list of appointments
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     public static ObservableList<Appointment> getAllAppts() throws SQLException {
+        // Clear out list of appointments
+        allAppts.clear();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(getAllApptsQuery);
         ResultSet rs = ps.executeQuery();
@@ -71,19 +74,22 @@ public class AppointmentDAO {
      * TODO
      * @param selectedAppt
      * @return
+     * @throws SQLException handles SQL errors
      */
     public static boolean deleteAppt (Appointment selectedAppt) throws SQLException {
 
-        PreparedStatement ps = JDBC.connection.prepareStatement(deleteApptQuery);
+        PreparedStatement ps = JDBC.connection.prepareStatement(deleteApptStmt);
         ps.setInt(1, selectedAppt.getId());
         int isDeleted = ps.executeUpdate();
 
         if (isDeleted == 1) {
             System.out.println("Appointment with ID: " + selectedAppt.getId() + " deleted");
+            getAllAppts(); // Reload the observable list with updated table data
+            AlertUtils.apptCanceledAlert(MainFormController.selectedAppt);
             return true;
         }
         else {
-            System.out.println("Appointment with ID: " + selectedAppt.getId() + " not deleted");
+            System.out.println("Something went wrong!");
             return false;
         }
     }

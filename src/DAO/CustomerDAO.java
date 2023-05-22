@@ -1,5 +1,6 @@
 package DAO;
 
+import controller.AddUpdateCustomerController;
 import controller.MainFormController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,17 +30,24 @@ public class CustomerDAO {
                     + " INNER JOIN first_level_divisions AS divs ON cust.Division_ID = divs.Division_ID"
                     + " INNER JOIN countries AS cnt ON divs.Country_ID = cnt.Country_ID";
 
-    // Delete query for removing a customer record from the "customers" table
-    private static final String deleteCustomerQuery = "DELETE FROM customers WHERE Customer_ID=?";
+    // Insert statement for adding a new customer record to the "customers" table
+    public static final String addCustomerStmt =
+            "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID)"
+            + " VALUES (?, ?, ?, ?, ?)";
+
+    // Delete statement for removing a customer record from the "customers" table
+    private static final String deleteCustomerStmt = "DELETE FROM customers WHERE Customer_ID=?";
 
     /**
      * This method retrieves all relevant customer information currently in the database and instantiates a new customer
      * object for every record that is returned from the query. All customer objects are added to an observable list,
      * the list is then returned.
      * @return the list of customers
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
-    public static ObservableList<Customer> getAllCustomers () throws SQLException {
+    public static ObservableList<Customer> getAllCustomers() throws SQLException {
+        // Clear out list of customers
+        allCustomers.clear();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(getAllCustomersQuery);
         ResultSet rs = ps.executeQuery();
@@ -59,20 +67,23 @@ public class CustomerDAO {
      * TODO
      * @param selectedCustomer
      * @return
+     * @throws SQLException handles SQL errors
      */
-    public static boolean deleteCustomer (Customer selectedCustomer) throws SQLException {
+    public static boolean deleteCustomer(Customer selectedCustomer) throws SQLException {
 
-        PreparedStatement ps = JDBC.connection.prepareStatement(deleteCustomerQuery);
+        PreparedStatement ps = JDBC.connection.prepareStatement(deleteCustomerStmt);
         ps.setInt(1, selectedCustomer.getId());
         int isDeleted = ps.executeUpdate();
 
+        // If successful
         if (isDeleted == 1) {
             System.out.println("Customer with ID: " + selectedCustomer.getId() + " deleted");
+            getAllCustomers(); // Reload the observable list with updated table data
             AlertUtils.customerRemovedAlert(MainFormController.selectedCustomer);
             return true;
         }
         else {
-            System.out.println("Customer with ID: " + selectedCustomer.getId() + " not deleted");
+            System.out.println("Something went wrong!");
             return false;
         }
     }

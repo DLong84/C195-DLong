@@ -21,7 +21,7 @@ public class CountryDAO {
     /**
      * TODO.....REMOVE???
      * @return
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     public static ObservableList<Country> getAllCountries () throws SQLException {
         ObservableList<Country> countries = FXCollections.observableArrayList();
@@ -43,7 +43,7 @@ public class CountryDAO {
      * every record that is returned from the query. It then obtains the country's name, which is added to the returned
      * observable list.
      * @return the list of countries by name
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     public static ObservableList<String> getAllCountryNames () throws SQLException {
         ObservableList<String> countries = FXCollections.observableArrayList();
@@ -66,7 +66,7 @@ public class CountryDAO {
      * ComboBox.
      * @param selectedCountry selected country from the ComboBox
      * @return the country's ID
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     public static int getCountryId(String selectedCountry) throws SQLException {
         selectedCountry = AddUpdateCustomerController.selectedCountry;
