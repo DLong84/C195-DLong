@@ -1,6 +1,5 @@
 package DAO;
 
-import controller.AddUpdateCustomerController;
 import controller.MainFormController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +24,7 @@ public class CustomerDAO {
 
     // Select join query for pulling relevant customer info from "customers", "first_level_divisions", & "countries" tables
     private static final String getAllCustomersQuery =
-                    "SELECT cust.Customer_ID, cust.Customer_Name, cust.Address, cust.Postal_Code, cust.Phone, divs.Division, cnt.Country"
+                    "SELECT cust.Customer_ID, cust.Customer_Name, cust.Address, cust.Postal_Code, cust.Phone, cust.Division_ID, divs.Division, cnt.Country"
                     + " FROM customers AS cust"
                     + " INNER JOIN first_level_divisions AS divs ON cust.Division_ID = divs.Division_ID"
                     + " INNER JOIN countries AS cnt ON divs.Country_ID = cnt.Country_ID";
@@ -34,6 +33,11 @@ public class CustomerDAO {
     public static final String addCustomerStmt =
             "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID)"
             + " VALUES (?, ?, ?, ?, ?)";
+
+    // Update statement for modifying an existing customer record in the "customers" table
+    public static final String modCustomerStmt =
+            "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?"
+            + " WHERE Customer_ID = ?";
 
     // Delete statement for removing a customer record from the "customers" table
     private static final String deleteCustomerStmt = "DELETE FROM customers WHERE Customer_ID=?";
@@ -56,7 +60,7 @@ public class CustomerDAO {
         while (rs.next()) {
             Customer customer = new Customer(rs.getInt("Customer_ID"), rs.getString("Customer_Name"),
                     rs.getString("Address"), rs.getString("Country"), rs.getString("Division"),
-                    rs.getString("Postal_Code"), rs.getString("Phone"));
+                    rs.getString("Postal_Code"), rs.getString("Phone"), rs.getInt("Division_ID"));
 
             allCustomers.add(customer);
         }

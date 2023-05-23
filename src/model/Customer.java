@@ -25,7 +25,7 @@ public class Customer {
      * @param postalCode the customer's Postal Code
      * @param phone the customer's Phone number
      */
-    public Customer(int id, String name, String address, String country, String state, String postalCode, String phone)
+    public Customer(int id, String name, String address, String country, String state, String postalCode, String phone, int divisionId)
     {
         this.id = id;
         this.name = name;
@@ -34,7 +34,7 @@ public class Customer {
         this.state = state;
         this.postalCode = postalCode;
         this.phone = phone;
-        //this.divisionId = divisionId; FIXME??? IF deleting, remove setters and getters!!
+        this.divisionId = divisionId;
     }
 
     // Setters for Customer attributes

@@ -13,7 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import model.Country;
+import model.Customer;
 import model.Division;
 import utlities.SceneUtils;
 import utlities.ValidationUtils;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * This class is used to manage the flow of data and view of the application's Add/Update Customer GUI form.
  * @author David Long
  */
-public class AddUpdateCustomerController implements Initializable {
+public class CustomerController implements Initializable {
 
     // Elements of GUI form
     @FXML
@@ -56,14 +56,9 @@ public class AddUpdateCustomerController implements Initializable {
     public static String selectedCountry;
 
     /**
-     * Selected division from state ComboBox.
+     * Boolean variable for keeping track of customer modification status.
      */
-    public static String selectedDivision; // FIXME REMOVE??
-
-    /**
-     *
-     */
-    private static boolean modify = false;
+    static boolean modifyCustomer = false;
 
     /**
      * TODO
@@ -72,42 +67,44 @@ public class AddUpdateCustomerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Customer form initialized");
+
+        // Get selected customer from Main form
+        Customer selectedCustomer = MainFormController.selectedCustomer;
+
         try {
-            // Load existing customer info into form
-            if (modify == true) {
-                // TODO
+            // Set Countries available in custCountryComboBox
+            try {
+                custCountryComboBox.setItems(CountryDAO.getAllCountryNames());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            // New customer
-            else {
-                // Set Countries available in custCountryComboBox
-                try {
-                    custCountryComboBox.setItems(CountryDAO.getAllCountryNames());
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+            // Load existing customer info into form for existing customer
+            if (modifyCustomer) {
+                custIDFld.setText(Integer.toString(selectedCustomer.getId()));
+                custNameFld.setText(selectedCustomer.getName());
+                custAddressFld.setText(selectedCustomer.getAddress());
+                custCountryComboBox.setValue(selectedCustomer.getCountry());
+                custStateComboBox.setValue(DivisionDAO.getDivisionName(selectedCustomer.getDivisionId()));
+                custPostalFld.setText(selectedCustomer.getPostalCode());
+                custPhoneFld.setText(selectedCustomer.getPhone());
             }
-            modify = false; // Reset modify variable
+            //modifyCustomer = false; // Reset modification variable
         }
         catch (Exception e) {
             // TODO
         }
-
-
-
-
-
     }
 
     /**
      * TODO
-     * @param event
+     * @param event "Cancel" button click
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     @FXML
     void onActionCancelCustomer(ActionEvent event) throws IOException {
         SceneUtils.toMainForm(custCancelBtn);
         // TODO Add alert
+        modifyCustomer = false; // Reset modification variable
     }
 
     /**
@@ -118,7 +115,7 @@ public class AddUpdateCustomerController implements Initializable {
      */
     @FXML
     void onActionSaveCustomer(ActionEvent event) throws SQLException, IOException {
-        // Check for blank fields or non-selected ComboBoxes
+        // Form validation check for blank fields or non-selected ComboBoxes
         if (    ValidationUtils.fldIsEmpty(custNameFld, "Name") ||
                 ValidationUtils.fldIsEmpty(custAddressFld, "Address") ||
                 ValidationUtils.boxNotSelected(custCountryComboBox, "Country") ||
@@ -129,23 +126,36 @@ public class AddUpdateCustomerController implements Initializable {
             return;
         }
         else {
-            // Pull customer info from form fields and insert data into "customers" table
-            PreparedStatement ps = JDBC.connection.prepareStatement(CustomerDAO.addCustomerStmt);
+            PreparedStatement ps; // Create PreparedStatement object
+
+            if (modifyCustomer) {
+                ps = JDBC.connection.prepareStatement(CustomerDAO.modCustomerStmt); // Existing customer statement
+            }
+            else {
+                ps = JDBC.connection.prepareStatement(CustomerDAO.addCustomerStmt); // New customer statement
+            }
+            // Set form's values into corresponding SQL statement & execute
             ps.setString(1, custNameFld.getText());
             ps.setString(2, custAddressFld.getText());
             ps.setString(3, custPostalFld.getText());
             ps.setString(4, custPhoneFld.getText());
             ps.setInt(5, DivisionDAO.getDivisionId(custStateComboBox.getValue()));
 
+            // Set value of Customer_ID into
+            if (modifyCustomer) {
+                ps.setInt(6, MainFormController.selectedCustomer.getId());
+            }
+            // Execute SQL statement and return number of rows added as a variable
             int rowsAdded = ps.executeUpdate();
-
+            // If successful
             if (rowsAdded == 1) {
-                System.out.println(custNameFld.getText() + " added to database");
+                System.out.println("Customer: " + "\"" + custNameFld.getText() + "\"" + " add/update successful");
                 SceneUtils.toMainForm(custSaveBtn);
             } else {
                 System.out.println("Something went wrong!");
             }
         }
+        modifyCustomer = false; // Reset modification variable
     }
 
     /**
@@ -169,7 +179,7 @@ public class AddUpdateCustomerController implements Initializable {
     /**
      * This method changes the available selections in the "custStateComboBox" depending on which country is selected in
      * the "custCountryComboBox".
-     * @param event Selection made in "custCountryComboBox"
+     * @param event selection made in "custCountryComboBox"
      * @throws SQLException handles SQL errors
      */
     @FXML
@@ -182,11 +192,5 @@ public class AddUpdateCustomerController implements Initializable {
 
         // Lambda expression call to filter divisions
         filter.filterComboBox(selectedCountryId);
-
-
-
-
-        // FIXME Debugging purposes
-        System.out.println(CountryDAO.getCountryId(selectedCountry));
     }
 }

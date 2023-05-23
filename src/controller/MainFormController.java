@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -138,23 +137,38 @@ public class MainFormController  implements Initializable {
         System.out.println("Main Form initialized");
     }
 
-
-
+    /**
+     * This method moves the current scene to the Customer form.
+     * @param event customer "Add" button click
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
     @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
         SceneUtils.toCustomerForm(addCustomerBtn);
     }
 
+    /**
+     * This method identifies the selected customer, sets the customer modification tracking variable to "true", then
+     * moves the current scene to the Customer form.
+     * @param event customers "Update" button click
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
     @FXML
-    void onActionUpdateCustomer(ActionEvent event) {
+    void onActionUpdateCustomer(ActionEvent event) throws IOException {
         // Assign currently selected customer to "selectedCustomer" object
         selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
 
-        selectedCustomer = null;
+        // Set modification tracking boolean to true
+        CustomerController.modifyCustomer = true;
+
+        // Move scene to Customer form
+        SceneUtils.toCustomerForm(updateCustomerBtn);
     }
 
     /**
-     * TODO
+     * This method identifies the selected customer from the customers tableview and performs a check for remaining
+     * appointments. If there are no appointments related to the customer, the customer is removed from the database upon
+     * user confirmation.
      * @param event customer "Delete" button click
      * @throws SQLException handles SQL errors
      */
@@ -200,8 +214,9 @@ public class MainFormController  implements Initializable {
     }
 
     /**
-     * TODO
-     * @param event
+     * This method identifies the selected appointment from the appointments tableview and, upon user confirmation,
+     * removes the appointment from the database.
+     * @param event appointments "Delete" button click
      * @throws SQLException handles SQL errors
      */
     @FXML
@@ -226,8 +241,6 @@ public class MainFormController  implements Initializable {
         catch (NullPointerException e) {
             AlertUtils.noSelectionAlert("Appointment", "delete");
         }
-
-
         selectedAppt = null;
     }
 

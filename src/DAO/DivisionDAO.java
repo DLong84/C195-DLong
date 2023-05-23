@@ -1,9 +1,7 @@
 package DAO;
 
-import controller.AddUpdateCustomerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Country;
 import model.Division;
 
 import java.sql.PreparedStatement;
@@ -70,7 +68,7 @@ public class DivisionDAO {
      * @throws SQLException handles SQL errors
      */
     public static int getDivisionId(String selectedDivision) throws SQLException {
-        //selectedDivision = AddUpdateCustomerController.selectedDivision; FIXME REMOVE??
+        //selectedDivision = CustomerController.selectedDivision; FIXME REMOVE??
 
         String query = "SELECT * FROM first_level_divisions WHERE Division=?";
 
@@ -90,4 +88,14 @@ public class DivisionDAO {
         return divisionId;
     }
 
+    public static String getDivisionName(int selectedDivisionId) throws SQLException {
+        String divisionName = "";
+        for (Division division : DivisionDAO.getAllDivisionObjects()) {
+            if (division.getId() == selectedDivisionId) {
+                divisionName = division.getDivision();
+                break;
+            }
+        }
+        return divisionName;
+    }
 }

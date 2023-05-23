@@ -1,6 +1,6 @@
 package DAO;
 
-import controller.AddUpdateCustomerController;
+import controller.CustomerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
@@ -69,7 +69,7 @@ public class CountryDAO {
      * @throws SQLException handles SQL errors
      */
     public static int getCountryId(String selectedCountry) throws SQLException {
-        selectedCountry = AddUpdateCustomerController.selectedCountry;
+        selectedCountry = CustomerController.selectedCountry;
 
         String query = "SELECT * FROM countries WHERE Country=?";
 

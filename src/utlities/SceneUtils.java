@@ -46,8 +46,13 @@ public class SceneUtils {
         mainStage.show();
     }
 
+    /**
+     * This method changes the scene to the "CustomerForm" GUI.
+     * @param clickedButton Variable used from the current scene to set the stage
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
     public static void toCustomerForm (Button clickedButton) throws IOException {
-        Parent root = FXMLLoader.load(SceneUtils.class.getResource("/view/AddUpdateCustomer.fxml"));
+        Parent root = FXMLLoader.load(SceneUtils.class.getResource("/view/CustomerForm.fxml"));
         Stage stage = (Stage) clickedButton.getScene().getWindow();
         Scene scene = new Scene(root, 693, 651);
         stage.setTitle("Customer Form");
