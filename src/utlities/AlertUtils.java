@@ -144,7 +144,7 @@ public class AlertUtils {
      * @param objectType The type of object being created (Customer or Appointment)
      * @return Returns true if the "Yes" button is clicked, otherwise returns false
      */
-    public static boolean cancelWarning(String objectType) {
+    public static boolean cancelWarningYes(String objectType) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText("This new " + objectType + " will not be saved. Are you sure you want to cancel?");
 
@@ -167,7 +167,7 @@ public class AlertUtils {
      * This method creates a warning dialog box for cancelling the modification of an existing customer or appointment.
      * @return Returns true if the "Yes" button is clicked, otherwise returns false
      */
-    public static boolean cancelWarning() {
+    public static boolean cancelWarningYes() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText("Any changes will not be saved. Are you sure you want to cancel?");
 
@@ -191,7 +191,7 @@ public class AlertUtils {
      * @param objectType
      * @return
      */
-    public static boolean deleteWarning(String objectType) {
+    public static boolean deleteWarningYes(String objectType) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText("Are you sure you want to delete this " + objectType + "?");
 

@@ -98,7 +98,8 @@ public class MainFormController  implements Initializable {
     public static Appointment selectedAppt;
 
     /**
-     * TODO
+     * This method loads the current form's GUI elements and sets the form's tableviews with customer and appointment
+     * data from the database.
      * @param url The location of the controller's .fxml file
      * @param resourceBundle The locale-specific resources for the controller's objects
      */
@@ -155,14 +156,24 @@ public class MainFormController  implements Initializable {
      */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException {
-        // Assign currently selected customer to "selectedCustomer" object
-        selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
+        try {
+            // Assign currently selected customer to "selectedCustomer" object
+            selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
 
-        // Set modification tracking boolean to true
-        CustomerController.modifyCustomer = true;
+            // Throw exception if no customer is selected
+            if (selectedCustomer == null) {
+                throw new NullPointerException();
+            }
 
-        // Move scene to Customer form
-        SceneUtils.toCustomerForm(updateCustomerBtn);
+            // Set modification tracking boolean to true
+            CustomerController.modifyCustomer = true;
+
+            // Move scene to Customer form
+            SceneUtils.toCustomerForm(updateCustomerBtn);
+        }
+        catch (NullPointerException e) {
+            AlertUtils.noSelectionAlert("customer", "update");
+        }
     }
 
     /**
@@ -185,19 +196,20 @@ public class MainFormController  implements Initializable {
             // Check for remaining appointments
             if (ValidationUtils.customerHasAppts(selectedCustomer)) {
                 AlertUtils.remainingApptsAlert(selectedCustomer);
+                MainFormController.selectedCustomer = null; // Reset selected customer, no longer needed
             }
             else{
                 // Customer removal confirmation
-                if (AlertUtils.deleteWarning("customer")) {
+                if (AlertUtils.deleteWarningYes("customer")) {
                     // Remove the customer
                     CustomerDAO.deleteCustomer(selectedCustomer);
+                    MainFormController.selectedCustomer = null; // Reset selected customer, no longer needed
                 }
             }
         }
         catch (NullPointerException e) {
             AlertUtils.noSelectionAlert("Customer", "delete");
         }
-        selectedCustomer = null;
     }
 
     @FXML
@@ -232,7 +244,7 @@ public class MainFormController  implements Initializable {
             }
             else{
                 // Appointment removal confirmation
-                if (AlertUtils.deleteWarning("appointment")) {
+                if (AlertUtils.deleteWarningYes("appointment")) {
                     // Remove the appointment
                     AppointmentDAO.deleteAppt(selectedAppt);
                 }

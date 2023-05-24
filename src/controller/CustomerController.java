@@ -15,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Customer;
 import model.Division;
+import utlities.AlertUtils;
 import utlities.SceneUtils;
 import utlities.ValidationUtils;
 
@@ -61,7 +62,9 @@ public class CustomerController implements Initializable {
     static boolean modifyCustomer = false;
 
     /**
-     * TODO
+     * This method loads the form's GUI elements and sets the country ComboBox with all available countries. If a
+     * customer was selected for modification, the fields and ComboBoxes are set with the selected customer data.
+     * Otherwise, all form fields and selections are empty.
      * @param url The location of the controller's .fxml file
      * @param resourceBundle The locale-specific resources for the controller's objects
      */
@@ -88,27 +91,42 @@ public class CustomerController implements Initializable {
                 custPostalFld.setText(selectedCustomer.getPostalCode());
                 custPhoneFld.setText(selectedCustomer.getPhone());
             }
-            //modifyCustomer = false; // Reset modification variable
         }
         catch (Exception e) {
-            // TODO
+            e.printStackTrace();
         }
     }
 
     /**
-     * TODO
+     * This method throws a specific warning dialog box, depending on whether the user was attempting to modify an existing
+     * customer or add a new customer. Upon the user selecting "yes" button in the respective dialog box, the scene is
+     * then changed to the "MainForm" GUI.
      * @param event "Cancel" button click
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     @FXML
     void onActionCancelCustomer(ActionEvent event) throws IOException {
-        SceneUtils.toMainForm(custCancelBtn);
-        // TODO Add alert
-        modifyCustomer = false; // Reset modification variable
+        // Existing customer warning
+        if (modifyCustomer) {
+            if (AlertUtils.cancelWarningYes()) {
+                modifyCustomer = false; // Reset modification variable
+                MainFormController.selectedCustomer = null; // Reset selected customer, no longer needed
+                SceneUtils.toMainForm(custCancelBtn);
+            }
+        }
+        // New customer warning
+        else if (AlertUtils.cancelWarningYes("customer")) {
+            modifyCustomer = false; // Reset modification variable
+            MainFormController.selectedCustomer = null; // Reset selected customer, no longer needed
+            SceneUtils.toMainForm(custCancelBtn);
+        }
     }
 
     /**
-     * TODO
+     * This method checks the form for empty and non-selected fields, then inserts the form's user input data into the
+     * corresponding SQL statement depending on whether the user is intending to create a new customer or modify
+     * an existing customer. Upon successfully modifying the "customers" table, the scene is then changed to the "MainForm"
+     * GUI.
      * @param event "Save" button click
      * @throws SQLException handles SQL errors
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
@@ -129,10 +147,10 @@ public class CustomerController implements Initializable {
             PreparedStatement ps; // Create PreparedStatement object
 
             if (modifyCustomer) {
-                ps = JDBC.connection.prepareStatement(CustomerDAO.modCustomerStmt); // Existing customer statement
+                ps = JDBC.connection.prepareStatement(CustomerDAO.modCustomerStmt); // Use existing customer statement
             }
             else {
-                ps = JDBC.connection.prepareStatement(CustomerDAO.addCustomerStmt); // New customer statement
+                ps = JDBC.connection.prepareStatement(CustomerDAO.addCustomerStmt); // Use new customer statement
             }
             // Set form's values into corresponding SQL statement & execute
             ps.setString(1, custNameFld.getText());
@@ -150,12 +168,15 @@ public class CustomerController implements Initializable {
             // If successful
             if (rowsAdded == 1) {
                 System.out.println("Customer: " + "\"" + custNameFld.getText() + "\"" + " add/update successful");
+
                 SceneUtils.toMainForm(custSaveBtn);
             } else {
                 System.out.println("Something went wrong!");
+                return;
             }
         }
         modifyCustomer = false; // Reset modification variable
+        MainFormController.selectedCustomer = null; // Reset selected customer, no longer needed
     }
 
     /**

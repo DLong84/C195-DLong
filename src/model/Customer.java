@@ -24,6 +24,7 @@ public class Customer {
      * @param state the customer's State
      * @param postalCode the customer's Postal Code
      * @param phone the customer's Phone number
+     * @param divisionId the customer's Division ID
      */
     public Customer(int id, String name, String address, String country, String state, String postalCode, String phone, int divisionId)
     {

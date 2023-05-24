@@ -71,21 +71,26 @@ public class AppointmentDAO {
     }
 
     /**
-     * TODO
-     * @param selectedAppt
-     * @return
+     * This method removes the selected appointment from the "appointments" table. If successful, it calls the
+     * getAllAppts() method to reload updated data into the "allAppts" ObservableList and throws a "removal" alert to
+     * the GUI.
+     * @param selectedAppt appointment to be removed
+     * @return "true" if customer is successfully removed, otherwise "false"
      * @throws SQLException handles SQL errors
      */
     public static boolean deleteAppt (Appointment selectedAppt) throws SQLException {
 
         PreparedStatement ps = JDBC.connection.prepareStatement(deleteApptStmt);
         ps.setInt(1, selectedAppt.getId());
+
+        // Execute SQL statement and return number of rows removed as a variable
         int isDeleted = ps.executeUpdate();
 
+        // If successful
         if (isDeleted == 1) {
-            System.out.println("Appointment with ID: " + selectedAppt.getId() + " deleted");
             getAllAppts(); // Reload the observable list with updated table data
             AlertUtils.apptCanceledAlert(MainFormController.selectedAppt);
+            System.out.println("Appointment with ID: " + selectedAppt.getId() + " deleted");
             return true;
         }
         else {

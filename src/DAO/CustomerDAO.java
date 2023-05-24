@@ -19,9 +19,6 @@ public class CustomerDAO {
     // List of customer objects instantiated from all records in the "customers" table
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
-    // Query for everything in "customers" table
-    private static final String selectAllQuery = "SELECT * FROM CUSTOMERS"; //FIXME DELETE???
-
     // Select join query for pulling relevant customer info from "customers", "first_level_divisions", & "countries" tables
     private static final String getAllCustomersQuery =
                     "SELECT cust.Customer_ID, cust.Customer_Name, cust.Address, cust.Postal_Code, cust.Phone, cust.Division_ID, divs.Division, cnt.Country"
@@ -68,22 +65,25 @@ public class CustomerDAO {
     }
 
     /**
-     * TODO
-     * @param selectedCustomer
-     * @return
+     * This method removes the selected customer from the "customers" table. If successful, it calls the getAllCustomers()
+     * method to reload updated data into the "allCustomers" ObservableList and throws a "removal" alert to the GUI.
+     * @param selectedCustomer customer to be removed
+     * @return "true" if customer is successfully removed, otherwise "false"
      * @throws SQLException handles SQL errors
      */
     public static boolean deleteCustomer(Customer selectedCustomer) throws SQLException {
 
         PreparedStatement ps = JDBC.connection.prepareStatement(deleteCustomerStmt);
         ps.setInt(1, selectedCustomer.getId());
+
+        // Execute SQL statement and return number of rows removed as a variable
         int isDeleted = ps.executeUpdate();
 
         // If successful
         if (isDeleted == 1) {
-            System.out.println("Customer with ID: " + selectedCustomer.getId() + " deleted");
             getAllCustomers(); // Reload the observable list with updated table data
             AlertUtils.customerRemovedAlert(MainFormController.selectedCustomer);
+            System.out.println("Customer with ID: " + selectedCustomer.getId() + " deleted");
             return true;
         }
         else {
