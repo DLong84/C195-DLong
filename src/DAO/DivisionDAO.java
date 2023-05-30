@@ -9,12 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class handles database access for the First Level Divisions table.
+ * This class handles database access for the "first_level_divisions" table.
  * @author David Long
  */
 public class DivisionDAO {
 
-    // Query for everything in First Level Divisions table
+    // Query for everything in "first_level_divisions" table
     private static final String selectAllQuery= "SELECT * FROM first_level_divisions";
 
     /**
@@ -87,6 +87,7 @@ public class DivisionDAO {
 
         return divisionId;
     }
+
 
     public static String getDivisionName(int selectedDivisionId) throws SQLException {
         String divisionName = "";

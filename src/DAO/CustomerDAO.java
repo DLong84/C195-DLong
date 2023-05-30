@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class handles database access for the Customers table.
+ * This class handles database access for the "customers" table.
  * @author David Long
  */
 public class CustomerDAO {

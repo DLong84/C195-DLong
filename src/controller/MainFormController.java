@@ -140,7 +140,7 @@ public class MainFormController  implements Initializable {
 
     /**
      * This method moves the current scene to the Customer form.
-     * @param event customer "Add" button click
+     * @param event customers "Add" button click
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     @FXML
@@ -172,7 +172,7 @@ public class MainFormController  implements Initializable {
             SceneUtils.toCustomerForm(updateCustomerBtn);
         }
         catch (NullPointerException e) {
-            AlertUtils.noSelectionAlert("customer", "update");
+            AlertUtils.noSelectionAlert("Customer", "update");
         }
     }
 
@@ -180,7 +180,7 @@ public class MainFormController  implements Initializable {
      * This method identifies the selected customer from the customers tableview and performs a check for remaining
      * appointments. If there are no appointments related to the customer, the customer is removed from the database upon
      * user confirmation.
-     * @param event customer "Delete" button click
+     * @param event customers "Delete" button click
      * @throws SQLException handles SQL errors
      */
     @FXML
@@ -212,17 +212,42 @@ public class MainFormController  implements Initializable {
         }
     }
 
+    /**
+     * This method moves the current scene to the Appointment form.
+     * @param event appointments "Add" button click
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
     @FXML
-    void onActionAddAppt(ActionEvent event) {
-        // TODO
-
-
+    void onActionAddAppt(ActionEvent event) throws IOException {
+        SceneUtils.toApptForm(addApptBtn);
     }
 
+    /**
+     * This method identifies the selected appointment, sets the appointment modification tracking variable to "true",
+     * then moves the current scene to the Appointment form.
+     * @param event appointments "Update" button click
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
     @FXML
-    void onActionUpdateAppt(ActionEvent event) {
-        // TODO
-        selectedAppt = mainApptsTable.getSelectionModel().getSelectedItem();
+    void onActionUpdateAppt(ActionEvent event) throws IOException {
+        try {
+            // Assign currently selected appointment to "selectedAppt" object
+            selectedAppt = mainApptsTable.getSelectionModel().getSelectedItem();
+
+            // Throw exception if no appointment is selected
+            if (selectedAppt == null) {
+                throw new NullPointerException();
+            }
+
+            // Set modification tracking boolean to true
+            ApptController.modifyAppt = true;
+
+            // Move scene to Customer form
+            SceneUtils.toApptForm(updateApptBtn);
+        }
+        catch (NullPointerException e) {
+            AlertUtils.noSelectionAlert("Appointment", "update");
+        }
     }
 
     /**

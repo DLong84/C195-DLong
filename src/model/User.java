@@ -35,4 +35,14 @@ public class User {
     public String getName() {
         return name;
     }
+
+    /**
+     * This method overrides the default toString() object method to display the User object by its id when setting it
+     * into a ComboBox.
+     * @return the contact's id
+     */
+    @Override
+    public String toString() {
+        return Integer.toString(id);
+    }
 }

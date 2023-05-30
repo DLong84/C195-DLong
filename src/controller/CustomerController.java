@@ -26,7 +26,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
- * This class is used to manage the flow of data and view of the application's Add/Update Customer GUI form.
+ * This class is used to manage the flow of data and view of the application's Customer GUI form.
  * @author David Long
  */
 public class CustomerController implements Initializable {

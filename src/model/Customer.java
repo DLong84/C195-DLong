@@ -103,4 +103,14 @@ public class Customer {
     public int getDivisionId() {
         return divisionId;
     }
+
+    /**
+     * This method overrides the default toString() object method to display the Customer object by its id when setting
+     * it into a ComboBox.
+     * @return the contact's id
+     */
+    @Override
+    public String toString() {
+        return Integer.toString(id);
+    }
 }

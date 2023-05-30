@@ -18,7 +18,7 @@ public class Appointment {
     private LocalDateTime end;
     private int customerId;
     private int userId;
-    //private int contactId; //FIXME REMOVE??
+    private int contactId; //FIXME REMOVE??
 
     /**
      * This is the Appointment constructor.

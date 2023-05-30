@@ -46,4 +46,14 @@ public class Contact {
     public String getEmail() {
         return email;
     }
+
+    /**
+     * This method overrides the default toString() object method to display the Contact object by its name when setting
+     * it into a ComboBox.
+     * @return the contact's name
+     */
+    @Override
+    public String toString() {
+        return name;
+    }
 }

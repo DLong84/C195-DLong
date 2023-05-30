@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class handles database access for the Appointments table.
+ * This class handles database access for the "appointments" table.
  * @author David Long
  */
 public class AppointmentDAO {

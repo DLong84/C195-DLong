@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="feat: Customer form &quot;Save&quot; implementation complete&#10;&#10;-customers &quot;Update&quot; button functional&#10;&#10;-Refactored &quot;AddUpdateCustomerController&quot; to &quot;CustomerController&quot;&#10;&#10;-Refactored &quot;AddUpdateCustomer&quot; FXML file to &quot;Customer&quot;&#10;&#10;-JavaDocs filled out for customer methods in Main Form controller&#10;&#10;TODO's &amp; FIXME's in place">
+    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="feat(customers): All customer classes and implementations/comments now fully complete&#10;&#10;TODO's &amp; FIXME's in place">
+      <change afterPath="$PROJECT_DIR$/src/DAO/ContactDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/UserDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/ApptController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/ApptForm.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/AppointmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/AppointmentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/CountryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/CountryDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/CustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DivisionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DivisionDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Contact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utlities/AlertUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/AlertUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utlities/SceneUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/SceneUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -54,6 +63,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\david\IdeaProjects\C195-DLong\src\Languages" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="DAO" />
     </key>
   </component>
   <component name="RunManager">
@@ -131,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684872852708</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat(customers): All customer classes and implementations/comments now fully complete&#10;&#10;TODO's &amp; FIXME's in place">
+      <created>1684956386038</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684956386038</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,7 +173,8 @@
     <MESSAGE value="feat: Customer &amp; Appointment &quot;delete&quot; buttons now functional w/ alerts&#10;&#10;-Comments added to various methods and class variables&#10;&#10;TODO's &amp; FIXME's in place" />
     <MESSAGE value="feat: Customer &quot;Add&quot; &amp; &quot;Delete&quot; buttons tested and now fully functional&#10;&#10;-Save button now functional for adding a new customer&#10;&#10;-Form validation completed for Customer form&#10;&#10;TODO's &amp; FIXME's in place" />
     <MESSAGE value="feat: Customer form &quot;Save&quot; implementation complete&#10;&#10;-customers &quot;Update&quot; button functional&#10;&#10;-Refactored &quot;AddUpdateCustomerController&quot; to &quot;CustomerController&quot;&#10;&#10;-Refactored &quot;AddUpdateCustomer&quot; FXML file to &quot;Customer&quot;&#10;&#10;-JavaDocs filled out for customer methods in Main Form controller&#10;&#10;TODO's &amp; FIXME's in place" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Customer form &quot;Save&quot; implementation complete&#10;&#10;-customers &quot;Update&quot; button functional&#10;&#10;-Refactored &quot;AddUpdateCustomerController&quot; to &quot;CustomerController&quot;&#10;&#10;-Refactored &quot;AddUpdateCustomer&quot; FXML file to &quot;Customer&quot;&#10;&#10;-JavaDocs filled out for customer methods in Main Form controller&#10;&#10;TODO's &amp; FIXME's in place" />
+    <MESSAGE value="feat(customers): All customer classes and implementations/comments now fully complete&#10;&#10;TODO's &amp; FIXME's in place" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(customers): All customer classes and implementations/comments now fully complete&#10;&#10;TODO's &amp; FIXME's in place" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

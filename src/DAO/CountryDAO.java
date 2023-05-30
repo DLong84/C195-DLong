@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class handles database access for the Countries table.
+ * This class handles database access for the "countries" table.
  * @author David Long
  */
 public class CountryDAO {

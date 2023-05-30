@@ -60,4 +60,18 @@ public class SceneUtils {
         stage.show();
     }
 
+    /**
+     * This method changes the scene to the "ApptForm" GUI.
+     * @param clickedButton Variable used from the current scene to set the stage
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
+    public static void toApptForm (Button clickedButton) throws IOException {
+        Parent root = FXMLLoader.load(SceneUtils.class.getResource("/view/ApptForm.fxml"));
+        Stage stage = (Stage) clickedButton.getScene().getWindow();
+        Scene scene = new Scene(root, 693, 833);
+        stage.setTitle("Appointment Form");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
