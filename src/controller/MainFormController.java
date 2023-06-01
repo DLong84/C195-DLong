@@ -1,7 +1,9 @@
 package controller;
 
 import DAO.AppointmentDAO;
+import DAO.ContactDAO;
 import DAO.CustomerDAO;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,12 +13,16 @@ import model.Appointment;
 import model.Customer;
 import utlities.AlertUtils;
 import utlities.SceneUtils;
+import utlities.TimeUtils;
 import utlities.ValidationUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 /**
@@ -298,6 +304,18 @@ public class MainFormController  implements Initializable {
 
     @FXML
     void onActionShowReports(ActionEvent event) {
+        // FIXME TESTING!!!!
+        LocalDateTime current = LocalDateTime.now();
+        //current = current.toLocalDate();
+        LocalDateTime currentUTC = LocalDateTime.now(ZoneId.of("UTC"));
+
+        System.out.println(TimeUtils.getTimezoneIdObject());
+        System.out.println(current.toLocalDate());
+        System.out.println(currentUTC);
+
+        System.out.println(TimeUtils.getAllApptTimes());
+
+
 
     }
 

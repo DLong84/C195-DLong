@@ -40,5 +40,22 @@ public class ContactDAO {
         return contacts;
     }
 
+    /**
+     * This method takes in the name (String) of a contact and compares it to all the contact object names in the
+     * database. If the name matches a contact object's name, that contact object is returned.
+     * @param contactName the contact name for comparison
+     * @return the matching contact object
+     * @throws SQLException handles SQL errors
+     */
+    public static Contact getContactObject(String contactName) throws SQLException {
+        Contact contactObject = null;
+        for(Contact contact : getAllContactObjects()) {
+            if (contact.getName().equals(contactName)) {
+                contactObject = contact;
+                break;
+            }
+        }
+        return contactObject;
+    }
 
 }

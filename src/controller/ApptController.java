@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.AppointmentDAO;
 import DAO.ContactDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
@@ -16,10 +17,14 @@ import model.Customer;
 import model.User;
 import utlities.AlertUtils;
 import utlities.SceneUtils;
+import utlities.TimeUtils;
+import utlities.ValidationUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
@@ -28,42 +33,31 @@ import java.util.ResourceBundle;
  */
 public class ApptController implements Initializable {
 
+    // Elements of GUI form
     @FXML
     private Button apptCancelBtn;
-
     @FXML
     private ComboBox<Contact> apptContactComboBox;
-
     @FXML
     private ComboBox<Customer> apptCustIdComboBox;
-
     @FXML
     private DatePicker apptDatePkr;
-
     @FXML
     private TextField apptDescriptFld;
-
     @FXML
-    private ComboBox<?> apptEndComboBox;
-
+    private ComboBox<LocalTime> apptEndComboBox;
     @FXML
     private TextField apptIDFld;
-
     @FXML
     private TextField apptLocationFld;
-
     @FXML
     private Button apptSaveBtn;
-
     @FXML
-    private ComboBox<?> apptStartComboBox;
-
+    private ComboBox<LocalTime> apptStartComboBox;
     @FXML
     private TextField apptTitleFld;
-
     @FXML
     private TextField apptTypeFld;
-
     @FXML
     private ComboBox<User> apptUserIdComboBox;
 
@@ -88,22 +82,29 @@ public class ApptController implements Initializable {
         try {
             // Set ComboBoxes with objects
             try {
+                apptStartComboBox.setItems(TimeUtils.getAllApptTimes());
+                apptEndComboBox.setItems(TimeUtils.getAllApptTimes());
                 apptContactComboBox.setItems(ContactDAO.getAllContactObjects());
                 apptCustIdComboBox.setItems(CustomerDAO.getAllCustomers());
                 apptUserIdComboBox.setItems(UserDAO.getAllUserObjects());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            // Load existing customer info into form for existing customer
-            /*if (modifyCustomer) {
-                custIDFld.setText(Integer.toString(selectedCustomer.getId()));
-                custNameFld.setText(selectedCustomer.getName());
-                custAddressFld.setText(selectedCustomer.getAddress());
-                custCountryComboBox.setValue(selectedCustomer.getCountry());
-                custStateComboBox.setValue(DivisionDAO.getDivisionName(selectedCustomer.getDivisionId()));
-                custPostalFld.setText(selectedCustomer.getPostalCode());
-                custPhoneFld.setText(selectedCustomer.getPhone());
-            }*/
+            // Load existing appointment info into form for existing appointment
+            if (modifyAppt) {
+                apptIDFld.setText(Integer.toString(selectedAppt.getId()));
+                apptTitleFld.setText(selectedAppt.getTitle());
+                apptDescriptFld.setText(selectedAppt.getDescription());
+                apptLocationFld.setText(selectedAppt.getLocation());
+                apptTypeFld.setText(selectedAppt.getType());
+                apptDatePkr.setValue(selectedAppt.getStart().toLocalDate());
+                apptStartComboBox.setValue(selectedAppt.getStart().toLocalTime());
+                apptEndComboBox.setValue(selectedAppt.getEnd().toLocalTime());
+                apptContactComboBox.setValue(ContactDAO.getContactObject(selectedAppt.getContact()));
+                // TODO Customer Box selection
+                // TODO User Box selection
+
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -137,6 +138,38 @@ public class ApptController implements Initializable {
 
     @FXML
     void onActionSaveAppt(ActionEvent event) {
+        // Form validation check for blank fields or non-selected ComboBoxes/DatePicker
+        if (    ValidationUtils.fldIsEmpty(apptTitleFld, "Title") ||
+                ValidationUtils.fldIsEmpty(apptDescriptFld, "Description") ||
+                ValidationUtils.fldIsEmpty(apptLocationFld, "Location") ||
+                ValidationUtils.fldIsEmpty(apptTypeFld, "Type") ||
+                ValidationUtils.dateNotSelected(apptDatePkr, "Date") ||
+                ValidationUtils.boxNotSelected(apptStartComboBox, "Start Time") ||
+                ValidationUtils.boxNotSelected(apptEndComboBox, "End Time") ||
+                ValidationUtils.boxNotSelected(apptContactComboBox, "Contact") ||
+                ValidationUtils.boxNotSelected(apptCustIdComboBox, "Customer ID") ||
+                ValidationUtils.boxNotSelected(apptUserIdComboBox, "User ID"))
+        {
+            return;
+        }
+
+        // Pull date from DatePicker and store as variable
+        LocalDate apptDate = apptDatePkr.getValue();
+
+        // Pull start/end times, convert them to "EST" and set them to variables
+        LocalTime estStart = TimeUtils.toEST(TimeUtils.toDateTime(apptDate, apptStartComboBox.getValue()));
+        LocalTime estEnd = TimeUtils.toEST(TimeUtils.toDateTime(apptDate, apptEndComboBox.getValue()));
+
+        // Appointment times validation
+        if (ValidationUtils.endIsBeforeStart(estStart, estEnd) ||
+            ValidationUtils.outsideBussHours(estStart, estEnd))
+        {
+            return;
+        }
+        else {
+            // TODO Prepare to load appt data into query and add/update appointment
+        }
+
 
     }
 

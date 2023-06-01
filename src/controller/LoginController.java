@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import utlities.AlertUtils;
 import utlities.SceneUtils;
+import utlities.TimeUtils;
 import utlities.ValidationUtils;
 
 import java.io.IOException;
@@ -76,7 +77,7 @@ public class LoginController implements Initializable {
         ResourceBundle.getBundle("languages.loginRB", Locale.getDefault());
 
         // Set displayed timezone
-        loginTimeZoneLbl.setText(ValidationUtils.getTimezone());
+        loginTimeZoneLbl.setText(TimeUtils.getTimezone());
 
     }
 

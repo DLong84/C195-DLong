@@ -248,6 +248,27 @@ public class AlertUtils {
         alert.showAndWait();
     }
 
+    /**
+     * TODO
+     */
+    public static void businessHoursAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Appointment Outside Business Hours");
+        alert.setHeaderText("Appointment Outside Business Hours!");
+        alert.setContentText("All appointments must be scheduled for between 8am-10pm EST");
+        alert.showAndWait();
+    }
+
+    /**
+     * TODO
+     */
+    public static void apptTimesAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Appointment Time Error");
+        alert.setHeaderText("Appointment Time Error!");
+        alert.setContentText("Appointment start time must be earlier than appointment end time");
+        alert.showAndWait();
+    }
 
 
 
