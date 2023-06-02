@@ -10,6 +10,7 @@ import model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.TimeZone;
@@ -155,6 +156,29 @@ public class ValidationUtils {
         else {
             return false;
         }
+    }
+
+    /**
+     * TODO
+     * @param apptCustomerId
+     * @param start
+     * @param end
+     * @return
+     * @throws SQLException handles SQL errors
+     */
+    public static boolean custApptOverlaps(int apptCustomerId, LocalDateTime start, LocalDateTime end) throws SQLException {
+
+        for (Appointment appt : AppointmentDAO.getAllAppts()) {
+            if (appt.getCustomerId() == apptCustomerId) {
+                if (((start.isEqual(appt.getStart()) || start.isAfter(appt.getStart())) && start.isBefore(appt.getEnd())) ||
+                        (end.isEqual(appt.getEnd()) || end.isBefore(appt.getEnd()) && (end.isAfter(appt.getStart()))) ||
+                        ((end.isAfter(appt.getEnd()) || end.isEqual(appt.getEnd())) && (start.isBefore(appt.getStart())
+                        || start.isEqual(appt.getStart())))) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

@@ -11,6 +11,7 @@ import utlities.SceneUtils;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 
 /**
@@ -55,11 +56,20 @@ public class schedulerMax extends Application {
      * @param args Command-line arguments for the scene. Not utilized.
      */
     public static void main(String[] args) {
-
-        Locale.setDefault(new Locale("en"));
-
-
+        // FIXME FOR TESTING
         //Locale.setDefault(new Locale("en"));
+
+        // Set the desired time zone for testing
+        //String timeZoneId = "America/New_York";  // Replace with your desired time zone
+
+        // Update the system time zone
+        //TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId));
+
+        // Verify the updated time zone
+        TimeZone timeZone = TimeZone.getDefault();
+        System.out.println("System Time Zone: " + timeZone.getID());
+
+
 
         /*try {
             ResourceBundle rb_french = ResourceBundle.getBundle("main.loginRB_fr_CA", Locale.getDefault());

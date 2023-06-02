@@ -133,6 +133,7 @@ public class CustomerController implements Initializable {
      */
     @FXML
     void onActionSaveCustomer(ActionEvent event) throws SQLException, IOException {
+
         // Form validation check for blank fields or non-selected ComboBoxes
         if (    ValidationUtils.fldIsEmpty(custNameFld, "Name") ||
                 ValidationUtils.fldIsEmpty(custAddressFld, "Address") ||
@@ -159,7 +160,7 @@ public class CustomerController implements Initializable {
             ps.setString(4, custPhoneFld.getText());
             ps.setInt(5, DivisionDAO.getDivisionId(custStateComboBox.getValue()));
 
-            // Set value of Customer_ID into
+            // Set value of Customer_ID into update statement
             if (modifyCustomer) {
                 ps.setInt(6, MainFormController.selectedCustomer.getId());
             }

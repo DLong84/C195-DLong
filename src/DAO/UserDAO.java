@@ -39,4 +39,23 @@ public class UserDAO {
         }
         return users;
     }
+
+    /**
+     * This method takes in the Id of a user and compares it to all the user object Ids's in the database. If the Id
+     * matches a user object's Id, that user object is returned.
+     * @param userId the user id for comparison
+     * @return the matching user object
+     * @throws SQLException handles SQL errors
+     */
+    public static User getUserObject(int userId) throws SQLException {
+        User userObject = null;
+        for(User user : getAllUserObjects()) {
+            if (user.getId() == userId) {
+                userObject = user;
+                break;
+            }
+        }
+        return userObject;
+    }
+
 }

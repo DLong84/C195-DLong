@@ -55,6 +55,7 @@ public class TimeUtils {
      */
     public static LocalDateTime toDateTime(LocalDate date, LocalTime time) {
         LocalDateTime dateTime = LocalDateTime.of(date, time);
+        System.out.println("LocalDateTime object: " + dateTime + " created from form");
         return dateTime;
     }
 

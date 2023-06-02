@@ -92,4 +92,22 @@ public class CustomerDAO {
         }
     }
 
+    /**
+     * This method takes in the Id of a customer and compares it to all the customer object Id's in the database. If the
+     * Id matches a customer object's Id, that customer object is returned.
+     * @param customerId the contact Id for comparison
+     * @return the matching customer object
+     * @throws SQLException handles SQL errors
+     */
+    public static Customer getCustomerObject(int customerId) throws SQLException {
+        Customer customerObject = null;
+        for(Customer customer : getAllCustomers()) {
+            if (customer.getId() == customerId) {
+                customerObject = customer;
+                break;
+            }
+        }
+        return customerObject;
+    }
+
 }

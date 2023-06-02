@@ -26,6 +26,18 @@ public class AppointmentDAO {
             + " FROM appointments AS appt"
             + " INNER JOIN contacts AS ct ON appt.Contact_ID = ct.Contact_ID";
 
+    // Insert statement for adding a new appointment record to the "appointments" table
+    public static final String addApptStmt =
+            "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    // Update statement for modifying an existing appointment record in the "appointments" table
+    public static final String modApptStmt =
+            "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?,"
+                    + " Customer_ID = ?, User_ID = ?, Contact_ID = ?"
+                    + " WHERE Appointment_ID = ?";
+
+
     // Delete statement for removing an appointment record from the "appointments" table
     private static final String deleteApptStmt = "DELETE FROM appointments WHERE Appointment_ID=?";
 

@@ -9,5 +9,5 @@ import java.sql.SQLException;
 public interface ComboBoxInterface {
 
     // Abstract method for filtering/setting the combo box's selections
-    void filterComboBox (int selectedCountryId) throws SQLException; //FIXME change to Country object???
+    void filterComboBox (int selectedCountryId) throws SQLException;
 }

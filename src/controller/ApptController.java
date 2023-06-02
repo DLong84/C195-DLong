@@ -1,9 +1,6 @@
 package controller;
 
-import DAO.AppointmentDAO;
-import DAO.ContactDAO;
-import DAO.CustomerDAO;
-import DAO.UserDAO;
+import DAO.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,8 +19,11 @@ import utlities.ValidationUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -101,9 +101,8 @@ public class ApptController implements Initializable {
                 apptStartComboBox.setValue(selectedAppt.getStart().toLocalTime());
                 apptEndComboBox.setValue(selectedAppt.getEnd().toLocalTime());
                 apptContactComboBox.setValue(ContactDAO.getContactObject(selectedAppt.getContact()));
-                // TODO Customer Box selection
-                // TODO User Box selection
-
+                apptCustIdComboBox.setValue(CustomerDAO.getCustomerObject(selectedAppt.getCustomerId()));
+                apptUserIdComboBox.setValue(UserDAO.getUserObject(selectedAppt.getUserId()));
             }
         }
         catch (Exception e) {
@@ -112,14 +111,15 @@ public class ApptController implements Initializable {
     }
 
     /**
-     * This method throws a specific warning dialog box, depending on whether the user was attempting to modify an existing
-     * appointment or add a new appointment. Upon the user selecting "yes" button in the respective dialog box, the scene is
-     * then changed to the "MainForm" GUI.
+     * This method throws a specific warning dialog box, depending on whether the user was attempting to modify an
+     * existing appointment or add a new appointment. Upon the user selecting "yes" button in the respective dialog box,
+     * the scene is then changed to the "MainForm" GUI.
      * @param event "Cancel" button click
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     @FXML
     void onActionCancelAppt(ActionEvent event) throws IOException {
+
         // Existing appointment warning
         if (modifyAppt) {
             if (AlertUtils.cancelWarningYes()) {
@@ -136,8 +136,18 @@ public class ApptController implements Initializable {
         }
     }
 
+    /**
+     * This method checks the form for empty and non-selected fields, then inserts the form's user input data into the
+     * corresponding SQL statement depending on whether the user is intending to create a new appointment or modify
+     * an existing appointment. Upon successfully modifying the "appointments" table, the scene is then changed to the
+     * "MainForm" GUI.
+     * @param event "Save" button click
+     * @throws SQLException handles SQL errors
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
     @FXML
-    void onActionSaveAppt(ActionEvent event) {
+    void onActionSaveAppt(ActionEvent event) throws SQLException, IOException {
+
         // Form validation check for blank fields or non-selected ComboBoxes/DatePicker
         if (    ValidationUtils.fldIsEmpty(apptTitleFld, "Title") ||
                 ValidationUtils.fldIsEmpty(apptDescriptFld, "Description") ||
@@ -156,21 +166,62 @@ public class ApptController implements Initializable {
         // Pull date from DatePicker and store as variable
         LocalDate apptDate = apptDatePkr.getValue();
 
-        // Pull start/end times, convert them to "EST" and set them to variables
-        LocalTime estStart = TimeUtils.toEST(TimeUtils.toDateTime(apptDate, apptStartComboBox.getValue()));
-        LocalTime estEnd = TimeUtils.toEST(TimeUtils.toDateTime(apptDate, apptEndComboBox.getValue()));
+        // Pull start/end times and create LocalDateTime objects for SQL statement insertion
+        LocalDateTime startDT = TimeUtils.toDateTime(apptDate, apptStartComboBox.getValue());
+        LocalDateTime endDT = TimeUtils.toDateTime(apptDate, apptEndComboBox.getValue());
+
+        // Convert start/end LocalDateTimes to "EST" and set them to variables
+        LocalTime estStartTime = TimeUtils.toEST(startDT);
+        LocalTime estEndTime = TimeUtils.toEST(endDT);
 
         // Appointment times validation
-        if (ValidationUtils.endIsBeforeStart(estStart, estEnd) ||
-            ValidationUtils.outsideBussHours(estStart, estEnd))
+        if (ValidationUtils.endIsBeforeStart(estStartTime, estEndTime) ||
+            ValidationUtils.outsideBussHours(estStartTime, estEndTime))
         {
             return;
         }
-        else {
-            // TODO Prepare to load appt data into query and add/update appointment
+        if (ValidationUtils.custApptOverlaps(apptCustIdComboBox.getValue().getId(), startDT, endDT)) {
+            System.out.println("Appointment for customer overlaps!"); // FIXME Create alert for this!
+            return;
         }
+        else {
+            PreparedStatement ps; // Create PreparedStatement object
 
+            if (modifyAppt) {
+                ps = JDBC.connection.prepareStatement(AppointmentDAO.modApptStmt); // Use existing appointment statement
+            }
+            else {
+                ps = JDBC.connection.prepareStatement(AppointmentDAO.addApptStmt); // Use new appointment statement
+            }
+            // Set form's values into corresponding SQL statement & execute
+            ps.setString(1, apptTitleFld.getText());
+            ps.setString(2, apptDescriptFld.getText());
+            ps.setString(3, apptLocationFld.getText());
+            ps.setString(4, apptTypeFld.getText());
+            ps.setTimestamp(5, Timestamp.valueOf(startDT));
+            ps.setTimestamp(6, Timestamp.valueOf(endDT));
+            ps.setInt(7, apptCustIdComboBox.getValue().getId());
+            ps.setInt(8, apptUserIdComboBox.getValue().getId());
+            ps.setInt(9, apptContactComboBox.getValue().getId());
 
+            // Set value of Appointment_ID into update statement
+            if (modifyAppt) {
+                ps.setInt(10, MainFormController.selectedAppt.getId());
+            }
+            // Execute SQL statement and return number of rows added as a variable
+            int rowsAdded = ps.executeUpdate();
+            // If successful
+            if (rowsAdded == 1) {
+                System.out.println("Appointment: " + "\"" + apptTypeFld.getText() + "\"" + " add/update successful");
+
+                SceneUtils.toMainForm(apptSaveBtn);
+            } else {
+                System.out.println("Something went wrong!");
+                return;
+            }
+        }
+        modifyAppt = false; // Reset modification variable
+        MainFormController.selectedAppt = null; // Reset selected appointment, no longer needed
     }
 
 
