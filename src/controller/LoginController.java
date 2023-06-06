@@ -29,28 +29,20 @@ public class LoginController implements Initializable {
     // Elements of GUI form
     @FXML
     private Button loginBtn;
-
     @FXML
     private Button loginCancelBtn;
-
     @FXML
     private AnchorPane loginFormAll;
-
     @FXML
     private Label loginLbl;
-
     @FXML
     private PasswordField loginPassFld;
-
     @FXML
     private Label loginPassLbl;
-
     @FXML
     private Label loginTimeZoneLbl;
-
     @FXML
     private TextField loginUserFld;
-
     @FXML
     private Label loginUserLbl;
 
@@ -62,7 +54,7 @@ public class LoginController implements Initializable {
     /**
      * ResourceBundle object used to initialize the form with internationalized content
      */
-    ResourceBundle rb_languages; //FIXME Delete????
+    //ResourceBundle rb_languages; //FIXME Delete????
 
     /**
      * This method loads the current form's GUI elements and obtains the current default locale accordingly.
@@ -78,14 +70,13 @@ public class LoginController implements Initializable {
 
         // Set displayed timezone
         loginTimeZoneLbl.setText(TimeUtils.getTimezone());
-
     }
 
     /**
      * This method checks the user's login credentials with "getUserId" method for existence in the database. Upon
      * validation, it assigns the user's Id to a variable then it calls the "toMainForm" method.
      * @param actionEvent "Login" button click
-     * @throws SQLException TODO
+     * @throws SQLException handles SQL errors
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     @FXML
@@ -109,7 +100,6 @@ public class LoginController implements Initializable {
             System.out.println("User with ID: " + currentUserId + " validated");
             SceneUtils.toMainForm(loginBtn);
         }
-
     }
 
     /**
@@ -124,6 +114,5 @@ public class LoginController implements Initializable {
             JDBC.closeConnection(); // Close the connection
             System.exit(0);
         }
-
     }
 }

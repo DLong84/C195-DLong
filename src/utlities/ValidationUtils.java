@@ -8,12 +8,9 @@ import javafx.scene.control.TextField;
 import model.Appointment;
 import model.Customer;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.TimeZone;
 
 /**
  * This class contains methods to handle validations for the application's GUI.
@@ -159,14 +156,18 @@ public class ValidationUtils {
     }
 
     /**
-     * TODO
-     * @param apptCustomerId
-     * @param start
-     * @param end
-     * @return
+     * This method takes in the customer Id from the proposed appointment and compares that customer's existing
+     * appointment times for overlap with the proposed appointment start/end time period by means of 3 possible scenarios.
+     * If any of the 3 possible overlap scenarios is true, the "overlapAlert" method is called and the method returns
+     * true. Otherwise, it returns false.
+     * @param apptCustomerId the proposed appointment's customer Id
+     * @param start the proposed appointment's starting time
+     * @param end the proposed appointment's ending time
+     * @return "true" if the proposed appointment time period overlaps any of the scenarios, otherwise "false"
      * @throws SQLException handles SQL errors
      */
-    public static boolean custApptOverlaps(int apptCustomerId, LocalDateTime start, LocalDateTime end) throws SQLException {
+    public static boolean custApptOverlaps(int apptCustomerId, LocalDateTime start, LocalDateTime end)
+            throws SQLException {
 
         for (Appointment appt : AppointmentDAO.getAllAppts()) {
             if (appt.getCustomerId() == apptCustomerId) {
@@ -174,6 +175,40 @@ public class ValidationUtils {
                         (end.isEqual(appt.getEnd()) || end.isBefore(appt.getEnd()) && (end.isAfter(appt.getStart()))) ||
                         ((end.isAfter(appt.getEnd()) || end.isEqual(appt.getEnd())) && (start.isBefore(appt.getStart())
                         || start.isEqual(appt.getStart())))) {
+                    AlertUtils.overlapAlert(); // Alert dialog box
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This method takes in the Id from the appointment being updated and customer Id from the proposed appointment. The
+     * appointment being updated is ignored for overlap with itself, then the customer's existing appointment times are
+     * compared with the proposed appointment start/end time period for overlap by means of 3 possible scenarios. If any
+     * of the 3 possible overlap scenarios is true, the "overlapAlert" method is called and the method returns true.
+     * Otherwise, it returns false.
+     * @param apptId the Id of the appointment being updated
+     * @param apptCustomerId the proposed appointment's customer Id
+     * @param start the proposed appointment's starting time
+     * @param end the proposed appointment's ending time
+     * @return "true" if the proposed appointment time period overlaps any of the scenarios, otherwise "false"
+     * @throws SQLException handles SQL errors
+     */
+    public static boolean custApptOverlaps(int apptId, int apptCustomerId, LocalDateTime start, LocalDateTime end)
+            throws SQLException {
+
+        for (Appointment appt : AppointmentDAO.getAllAppts()) {
+            if (appt.getId() == apptId) {
+                continue;
+            }
+            if (appt.getCustomerId() == apptCustomerId) {
+                if (((start.isEqual(appt.getStart()) || start.isAfter(appt.getStart())) && start.isBefore(appt.getEnd())) ||
+                        (end.isEqual(appt.getEnd()) || end.isBefore(appt.getEnd()) && (end.isAfter(appt.getStart()))) ||
+                        ((end.isAfter(appt.getEnd()) || end.isEqual(appt.getEnd())) && (start.isBefore(appt.getStart())
+                                || start.isEqual(appt.getStart())))) {
+                    AlertUtils.overlapAlert(); // Alert dialog box
                     return true;
                 }
             }

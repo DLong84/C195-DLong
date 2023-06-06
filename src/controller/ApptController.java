@@ -148,6 +148,9 @@ public class ApptController implements Initializable {
     @FXML
     void onActionSaveAppt(ActionEvent event) throws SQLException, IOException {
 
+        // Get selected appointment from Main form
+        Appointment selectedAppt = MainFormController.selectedAppt;
+
         // Form validation check for blank fields or non-selected ComboBoxes/DatePicker
         if (    ValidationUtils.fldIsEmpty(apptTitleFld, "Title") ||
                 ValidationUtils.fldIsEmpty(apptDescriptFld, "Description") ||
@@ -180,49 +183,55 @@ public class ApptController implements Initializable {
         {
             return;
         }
-        if (ValidationUtils.custApptOverlaps(apptCustIdComboBox.getValue().getId(), startDT, endDT)) {
-            System.out.println("Appointment for customer overlaps!"); // FIXME Create alert for this!
-            return;
-        }
-        else {
-            PreparedStatement ps; // Create PreparedStatement object
 
-            if (modifyAppt) {
-                ps = JDBC.connection.prepareStatement(AppointmentDAO.modApptStmt); // Use existing appointment statement
-            }
-            else {
-                ps = JDBC.connection.prepareStatement(AppointmentDAO.addApptStmt); // Use new appointment statement
-            }
-            // Set form's values into corresponding SQL statement & execute
-            ps.setString(1, apptTitleFld.getText());
-            ps.setString(2, apptDescriptFld.getText());
-            ps.setString(3, apptLocationFld.getText());
-            ps.setString(4, apptTypeFld.getText());
-            ps.setTimestamp(5, Timestamp.valueOf(startDT));
-            ps.setTimestamp(6, Timestamp.valueOf(endDT));
-            ps.setInt(7, apptCustIdComboBox.getValue().getId());
-            ps.setInt(8, apptUserIdComboBox.getValue().getId());
-            ps.setInt(9, apptContactComboBox.getValue().getId());
-
-            // Set value of Appointment_ID into update statement
-            if (modifyAppt) {
-                ps.setInt(10, MainFormController.selectedAppt.getId());
-            }
-            // Execute SQL statement and return number of rows added as a variable
-            int rowsAdded = ps.executeUpdate();
-            // If successful
-            if (rowsAdded == 1) {
-                System.out.println("Appointment: " + "\"" + apptTypeFld.getText() + "\"" + " add/update successful");
-
-                SceneUtils.toMainForm(apptSaveBtn);
-            } else {
-                System.out.println("Something went wrong!");
+        // Customer's appointment overlap validation
+        if (modifyAppt) {
+            if (ValidationUtils.custApptOverlaps(selectedAppt.getId(), apptCustIdComboBox.getValue().getId(),
+                    startDT, endDT)) {
                 return;
             }
+        } else {
+            if (ValidationUtils.custApptOverlaps(apptCustIdComboBox.getValue().getId(), startDT, endDT)) {
+                return;
+            }
+        }
+
+
+        PreparedStatement ps; // Create PreparedStatement object
+
+        if (modifyAppt) {
+            ps = JDBC.connection.prepareStatement(AppointmentDAO.modApptStmt); // Use existing appointment statement
+        }
+        else {
+            ps = JDBC.connection.prepareStatement(AppointmentDAO.addApptStmt); // Use new appointment statement
+        }
+        // Set form's values into corresponding SQL statement & execute
+        ps.setString(1, apptTitleFld.getText());
+        ps.setString(2, apptDescriptFld.getText());
+        ps.setString(3, apptLocationFld.getText());
+        ps.setString(4, apptTypeFld.getText());
+        ps.setTimestamp(5, Timestamp.valueOf(startDT));
+        ps.setTimestamp(6, Timestamp.valueOf(endDT));
+        ps.setInt(7, apptCustIdComboBox.getValue().getId());
+        ps.setInt(8, apptUserIdComboBox.getValue().getId());
+        ps.setInt(9, apptContactComboBox.getValue().getId());
+
+        // Set value of Appointment_ID into update statement
+        if (modifyAppt) {
+            ps.setInt(10, MainFormController.selectedAppt.getId());
+        }
+        // Execute SQL statement and return number of rows added as a variable
+        int rowsAdded = ps.executeUpdate();
+        // If successful
+        if (rowsAdded == 1) {
+            System.out.println("Appointment: " + "\"" + apptTypeFld.getText() + "\"" + " add/update successful");
+
+            SceneUtils.toMainForm(apptSaveBtn);
+        } else {
+            System.out.println("Something went wrong!");
+            return;
         }
         modifyAppt = false; // Reset modification variable
         MainFormController.selectedAppt = null; // Reset selected appointment, no longer needed
     }
-
-
 }

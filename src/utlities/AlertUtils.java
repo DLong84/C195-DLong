@@ -270,6 +270,17 @@ public class AlertUtils {
         alert.showAndWait();
     }
 
+    /**
+     * TODO
+     */
+    public static void overlapAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Appointment Overlap");
+        alert.setHeaderText("Appointment Overlap!");
+        alert.setContentText("Customer has an existing appointment during this time period. Please adjust the Start/End "
+                            + "times");
+        alert.showAndWait();
+    }
 
 
 }

@@ -79,6 +79,7 @@ public class AppointmentDAO {
     // FIXME May or may not implement this (Will be used to filter appts per user_id)
     public static ObservableList<Appointment> getUserAppts (Object userId) {
         ObservableList<Appointment> userAppts = FXCollections.observableArrayList();
+        // TODO
         return userAppts;
     }
 
