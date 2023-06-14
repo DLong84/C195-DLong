@@ -1,6 +1,8 @@
 package controller;
 
+import DAO.AppointmentDAO;
 import DAO.JDBC;
+import Interfaces.AppointmentInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.Appointment;
 import utlities.AlertUtils;
 import utlities.SceneUtils;
 import utlities.TimeUtils;
@@ -17,6 +20,7 @@ import utlities.ValidationUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -47,7 +51,7 @@ public class LoginController implements Initializable {
     private Label loginUserLbl;
 
     /**
-     * Object used to pass the value of the current user's Id FIXME??
+     * Object used to pass the value of the current user's Id
      */
     public static Object currentUserId = null;
 
@@ -73,8 +77,41 @@ public class LoginController implements Initializable {
     }
 
     /**
+     * Lambda expression used for checking existing upcoming appointments, specifically for a user, that start within 15
+     * minutes or less from the time the expression is called. It first instantiates a boolean variable "upcomingAppt"
+     * to false, which is used for keeping track of whether the user has any upcoming appointments. It then checks (by
+     * the user's Id that was taken in as an argument) for the user's existing appointments. If the user has any
+     * appointments, the list is iterated over to check for an appointment starting time within the 15-minute window from
+     * the current time. If one is found, the details of that appointment are placed into the dialog box alert method to
+     * inform the user of an upcoming appointment and the "upcomingAppt" variable is set to true. If the variable is
+     * false (the list of appointments is empty or no appointments were within 15 minutes), it calls the dialog box
+     * alert method to inform the user of no upcoming appointments. A lambda expression was chosen here for clarity and
+     * conciseness.
+     */
+    AppointmentInterface upcoming = (userId) -> {
+        // Variable for keeping track of upcoming appointments
+        boolean upcomingAppt = false;
+
+        // If user has appointments
+        if (!AppointmentDAO.getUserAppts(userId).isEmpty()) {
+            for (Appointment appt : AppointmentDAO.getUserAppts(userId)) {
+                if (appt.getStart().isAfter(LocalDateTime.now()) &&          // If appointment is after current time AND
+                        appt.getStart().isBefore(LocalDateTime.now().plusMinutes(15)) ) {   // Earlier than 15 minutes
+                    AlertUtils.upcomingApptAlert(appt); // Dialog box for upcoming appointment info
+                    upcomingAppt = true;
+                }
+            }
+        }
+        // If no appointments or none are within 15 minutes
+        if (!upcomingAppt) {
+            AlertUtils.noUpcomingApptAlert(); // Dialog box for no upcoming appointments
+        }
+    };
+
+    /**
      * This method checks the user's login credentials with "getUserId" method for existence in the database. Upon
-     * validation, it assigns the user's Id to a variable then it calls the "toMainForm" method.
+     * validation, it assigns the user's Id to a variable, it calls the "toMainForm" method, then checks for user's
+     * upcoming appointments with use of a lambda expression.
      * @param actionEvent "Login" button click
      * @throws SQLException handles SQL errors
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
@@ -99,6 +136,13 @@ public class LoginController implements Initializable {
         else {
             System.out.println("User with ID: " + currentUserId + " validated");
             SceneUtils.toMainForm(loginBtn);
+
+            // Lambda expression call to check for user's upcoming appointments
+            try {
+                upcoming.apptCheck(LoginController.currentUserId);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

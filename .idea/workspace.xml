@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="feat(appts): Add new appointments &amp; modify existing appointments fully implemented w/ JavaDocs completed&#10;&#10;-Implemented code to check for overlapping customer appointments&#10;&#10;-&quot;AppointmentInterface&quot; created for lambda expression use&#10;&#10;TODO's &amp; FIXME's in place">
+    <list default="true" id="9facf6ed-a4a5-494a-8095-b102a36864c6" name="Changes" comment="feat(appts): Overlapping appointments method was overloaded for ability to exclude existing appointments&#10;&#10;-ApptController class now fully complete w/ JavaDocs&#10;&#10;TODO's &amp; FIXME's in place">
+      <change afterPath="$PROJECT_DIR$/src/controller/ReportsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/ReportsForm.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/AppointmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/AppointmentDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/JDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interfaces/AppointmentInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interfaces/AppointmentInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/ApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ApptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/schedulerMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/schedulerMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Appointment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utlities/AlertUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/AlertUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utlities/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/ValidationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utlities/SceneUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utlities/SceneUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +28,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="FxmlFile" />
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -161,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685736931013</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat(appts): Overlapping appointments method was overloaded for ability to exclude existing appointments&#10;&#10;-ApptController class now fully complete w/ JavaDocs&#10;&#10;TODO's &amp; FIXME's in place">
+      <created>1686076871753</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1686076871753</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -188,7 +203,8 @@
     <MESSAGE value="feat(appointments): &quot;ApptForm&quot; fxml file and controller class created&#10;&#10;ApptForm scene change method implemented&#10;&#10;&quot;Contact&quot;, &quot;Customer&quot;, &amp; &quot;User&quot; ComboBoxes on Appointment Form populated with objects&#10;&#10;Appointment &quot;Add&quot;, &quot;Update&quot;, &amp; &quot;Delete&quot; buttons on Main Form completely implemented with JavaDocs&#10;&#10;TODO's &amp; FIXME's in place" />
     <MESSAGE value="feat(times): &quot;TimeUtils&quot; class created with timezone conversion methods&#10;&#10;-Appointment form validation complete w/ checking times against business hours and reversed start/end times&#10;&#10;TODO's &amp; FIXME's in place" />
     <MESSAGE value="feat(appts): Add new appointments &amp; modify existing appointments fully implemented w/ JavaDocs completed&#10;&#10;-Implemented code to check for overlapping customer appointments&#10;&#10;-&quot;AppointmentInterface&quot; created for lambda expression use&#10;&#10;TODO's &amp; FIXME's in place" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(appts): Add new appointments &amp; modify existing appointments fully implemented w/ JavaDocs completed&#10;&#10;-Implemented code to check for overlapping customer appointments&#10;&#10;-&quot;AppointmentInterface&quot; created for lambda expression use&#10;&#10;TODO's &amp; FIXME's in place" />
+    <MESSAGE value="feat(appts): Overlapping appointments method was overloaded for ability to exclude existing appointments&#10;&#10;-ApptController class now fully complete w/ JavaDocs&#10;&#10;TODO's &amp; FIXME's in place" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(appts): Overlapping appointments method was overloaded for ability to exclude existing appointments&#10;&#10;-ApptController class now fully complete w/ JavaDocs&#10;&#10;TODO's &amp; FIXME's in place" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 
 /**
  * This class represents an Appointment.
@@ -8,17 +9,19 @@ import java.time.LocalDateTime;
  */
 public class Appointment {
 
+    // Attributes
     private int id;
     private String title;
     private String description;
     private String location;
     private String type;
-    private String contact; //FIXME to int/contact id???
+    private String contact;
     private LocalDateTime start;
     private LocalDateTime end;
     private int customerId;
     private int userId;
-    private int contactId; //FIXME REMOVE??
+    private int count;
+    private Month month;
 
     /**
      * This is the Appointment constructor.
@@ -33,8 +36,8 @@ public class Appointment {
      * @param customerId the appointment's Customer ID
      * @param userId the appointment's User ID
      */
-    public Appointment(int id, String title, String description, String location, String type, String contact, LocalDateTime start,
-                       LocalDateTime end, int customerId, int userId)
+    public Appointment(int id, String title, String description, String location, String type, String contact,
+                       LocalDateTime start, LocalDateTime end, int customerId, int userId)
     {
         this.id = id;
         this.title = title;
@@ -46,6 +49,18 @@ public class Appointment {
         this.end = end;
         this.customerId = customerId;
         this.userId = userId;
+    }
+
+    /**
+     * This is the Appointment constructor used for special Appointment objects displayed in a report.
+     * @param month the appointment's month
+     * @param type the appointment's type
+     * @param count the appointment's count
+     */
+    public Appointment(Month month, String type, int count) {
+        this.month = month;
+        this.type = type;
+        this.count = count;
     }
 
     // Setters for Appointment attributes
@@ -89,6 +104,13 @@ public class Appointment {
         this.userId = userId;
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setMonth(Month month) {
+        this.month = month;
+    }
 
     // Getters for Appointment attributes
     public int getId() {
@@ -131,4 +153,11 @@ public class Appointment {
         return userId;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public Month getMonth() {
+        return month;
+    }
 }

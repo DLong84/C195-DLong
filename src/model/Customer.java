@@ -5,6 +5,8 @@ package model;
  * @author David Long
  */
 public class Customer {
+
+    // Attributes
     private int id;
     private String name;
     private String address;
@@ -26,7 +28,8 @@ public class Customer {
      * @param phone the customer's Phone number
      * @param divisionId the customer's Division ID
      */
-    public Customer(int id, String name, String address, String country, String state, String postalCode, String phone, int divisionId)
+    public Customer(int id, String name, String address, String country, String state, String postalCode, String phone,
+                    int divisionId)
     {
         this.id = id;
         this.name = name;

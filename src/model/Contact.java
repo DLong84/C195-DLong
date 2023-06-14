@@ -5,9 +5,11 @@ package model;
  * @author David Long
  */
 public class Contact {
+
+    // Attributes
     private int id;
     private String name;
-    private String email; //FIXME probably not needed, delete??
+    private String email;
 
     /**
      * This is the Contact constructor.

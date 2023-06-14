@@ -74,4 +74,18 @@ public class SceneUtils {
         stage.show();
     }
 
+    /**
+     * This method changes the scene to the "ReportsForm" GUI.
+     * @param clickedButton Variable used from the current scene to set the stage
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
+    public static void toReportsForm (Button clickedButton) throws IOException {
+        Parent root = FXMLLoader.load(SceneUtils.class.getResource("/view/ReportsForm.fxml"));
+        Stage stage = (Stage) clickedButton.getScene().getWindow();
+        Scene scene = new Scene(root, 1022, 660);
+        stage.setTitle("Reports Form");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

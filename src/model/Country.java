@@ -5,6 +5,8 @@ package model;
  * @author David Long
  */
 public class Country {
+
+    // Attributes
     private int id;
     private String country;
 

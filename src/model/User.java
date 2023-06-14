@@ -5,6 +5,8 @@ package model;
  * @author David Long
  */
 public class User {
+
+    // Attributes
     private int id;
     private String name;
 

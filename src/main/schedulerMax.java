@@ -30,21 +30,21 @@ public class schedulerMax extends Application {
     @Override
     public void start(Stage mainStage) throws IOException {
         // ResourceBundle object
-        //ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB");
+        ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB");
 
-        //mainStage.setResizable(false);
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginForm.fxml"), rb_languages); //FIXME??
-        //Parent root = loader.load();
-        //mainStage.setTitle(rb_languages.getString("loginFormHeader"));
-        //mainStage.setScene(new Scene(root, 600, 449));
-        //mainStage.show();
+        mainStage.setResizable(false);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginForm.fxml"), rb_languages); //FIXME??
+        Parent root = loader.load();
+        mainStage.setTitle(rb_languages.getString("loginFormHeader"));
+        mainStage.setScene(new Scene(root, 600, 449));
+        mainStage.show();
 
         // FIXME DELETE BEFORE PROJECT SUBMISSION!!!!!!
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainForm.fxml"));
-        Parent root = loader.load();
-        mainStage.setTitle("SchedulerMax");
-        mainStage.setScene(new Scene(root, 1296, 823));
-        mainStage.show();
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainForm.fxml"));
+        //Parent root = loader.load();
+        //mainStage.setTitle("SchedulerMax");
+        //mainStage.setScene(new Scene(root, 1296, 823));
+        //mainStage.show();
 
 
     }

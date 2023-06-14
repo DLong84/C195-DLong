@@ -5,6 +5,7 @@ import javafx.scene.control.ButtonType;
 import model.Appointment;
 import model.Customer;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -282,5 +283,32 @@ public class AlertUtils {
         alert.showAndWait();
     }
 
+    /**
+     * TODO
+     * @param appt the upcoming appointment
+     */
+    public static void upcomingApptAlert(Appointment appt) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Upcoming Appointment");
+        alert.setHeaderText("Upcoming Appointment!");
+        alert.setContentText("There is an upcoming appointment...ID: " + appt.getId() +
+                                ", Date: " +
+                                appt.getStart().toLocalDate().format(DateTimeFormatter.ofPattern("MM-dd-yyyy")) +
+                                ", Time: " +
+                                appt.getStart().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mma")));
+
+        alert.showAndWait();
+    }
+
+    /**
+     * TODO
+     */
+    public static void noUpcomingApptAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("No Upcoming Appointments");
+        alert.setHeaderText("No Upcoming Appointments");
+        alert.setContentText("There are no upcoming appointments");
+        alert.showAndWait();
+    }
 
 }

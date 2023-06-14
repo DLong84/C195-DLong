@@ -5,6 +5,8 @@ package model;
  * @author David Long
  */
 public class Division {
+
+    // Attributes
     private int id;
     private String division;
     private int countryId;

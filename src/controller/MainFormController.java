@@ -3,6 +3,8 @@ package controller;
 import DAO.AppointmentDAO;
 import DAO.ContactDAO;
 import DAO.CustomerDAO;
+import Interfaces.AppointmentInterface;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,10 +21,8 @@ import utlities.ValidationUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ResourceBundle;
 
 /**
@@ -111,6 +111,7 @@ public class MainFormController  implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // Set tableview with all customers currently in database
         try {
             mainCustomersTable.setItems(CustomerDAO.getAllCustomers());
@@ -142,6 +143,8 @@ public class MainFormController  implements Initializable {
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
         System.out.println("Main Form initialized");
+
+
     }
 
     /**
@@ -287,36 +290,80 @@ public class MainFormController  implements Initializable {
         selectedAppt = null;
     }
 
+    /**
+     * This method sets the Appointments tableview with all the appointments currently in the database.
+     * @param event "All Appointments" radio button selected
+     */
     @FXML
     void onViewAllAppts(ActionEvent event) {
 
+        // Set tableview with all appointments currently in database
+        try {
+            mainApptsTable.setItems(AppointmentDAO.getAllAppts());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    /**
+     * This method sets the Appointments tableview with all the appointments currently in the database that fall within
+     * the current month.
+     * @param event "Current Month" radio button selected
+     * @throws SQLException handles SQL errors
+     */
     @FXML
-    void onViewMonthAppts(ActionEvent event) {
+    void onViewMonthAppts(ActionEvent event) throws SQLException {
 
+        // List of appointments for current month
+        ObservableList<Appointment> monthAppts = FXCollections.observableArrayList();
+
+        // Check for appointments within the current month & add found appointments to list
+        for (Appointment appt : AppointmentDAO.getAllAppts()) {
+            if (appt.getStart().toLocalDate().getYear() == LocalDate.now().getYear() &&
+                    appt.getStart().toLocalDate().getMonth() == LocalDate.now().getMonth()) {
+                monthAppts.add(appt);
+            }
+        }
+        // Set tableview with list of current month's appointments
+        mainApptsTable.setItems(monthAppts);
     }
 
+    /**
+     * This method sets the Appointments tableview with all the appointments currently in the database that fall within
+     * the current week.
+     * @param event "Current Week" radio button selected
+     * @throws SQLException handles SQL errors
+     */
     @FXML
-    void onViewWeekAppts(ActionEvent event) {
+    void onViewWeekAppts(ActionEvent event) throws SQLException {
 
+        // List of appointments for current week
+        ObservableList<Appointment> weekAppts = FXCollections.observableArrayList();
+
+        // Variables for tracking current week's first and last day
+        LocalDate weekStart = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate weekEnd = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+
+        // Check for appointments within the current week & add found appointments to list
+        for (Appointment appt : AppointmentDAO.getAllAppts()) {
+            if (appt.getStart().toLocalDate().isEqual(weekStart) || appt.getStart().toLocalDate().isEqual(weekEnd) ||
+                    (appt.getStart().toLocalDate().isAfter(weekStart) && appt.getStart().toLocalDate().isBefore(weekEnd)))
+            {
+                weekAppts.add(appt);
+            }
+        }
+        // Set tableview with list of current week's appointments
+        mainApptsTable.setItems(weekAppts);
     }
 
+    /**
+     * This method moves the current scene to the Reports form.
+     * @param event "Reports" button click
+     * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
+     */
     @FXML
-    void onActionShowReports(ActionEvent event) {
-        // FIXME TESTING!!!!
-        LocalDateTime current = LocalDateTime.now();
-        //current = current.toLocalDate();
-        LocalDateTime currentUTC = LocalDateTime.now(ZoneId.of("UTC"));
-
-        System.out.println(TimeUtils.getTimezoneIdObject());
-        System.out.println(current.toLocalDate());
-        System.out.println(currentUTC);
-
-        System.out.println(TimeUtils.getAllApptTimes());
-
-
-
+    void onActionShowReports(ActionEvent event) throws IOException {
+        SceneUtils.toReportsForm(mainReportsBtn);
     }
 
     /**
@@ -335,7 +382,6 @@ public class MainFormController  implements Initializable {
             // Set static variable to null (safety measure)
             LoginController.currentUserId = null;
         }
-        System.out.println(LoginController.currentUserId);
+        System.out.println(LoginController.currentUserId); // Here for debugging purposes
     }
-
 }

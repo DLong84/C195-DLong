@@ -8,6 +8,7 @@ import Interfaces.ComboBoxInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -71,6 +72,9 @@ public class CustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Dummy event for triggering the onAction event when loading the form for modifying a customer
+        ActionEvent event = new ActionEvent();
+
         // Get selected customer from Main form
         Customer selectedCustomer = MainFormController.selectedCustomer;
 
@@ -87,6 +91,7 @@ public class CustomerController implements Initializable {
                 custNameFld.setText(selectedCustomer.getName());
                 custAddressFld.setText(selectedCustomer.getAddress());
                 custCountryComboBox.setValue(selectedCustomer.getCountry());
+                onCountrySelection(event); // Preload division ComboBox
                 custStateComboBox.setValue(DivisionDAO.getDivisionName(selectedCustomer.getDivisionId()));
                 custPostalFld.setText(selectedCustomer.getPostalCode());
                 custPhoneFld.setText(selectedCustomer.getPhone());
@@ -182,8 +187,10 @@ public class CustomerController implements Initializable {
 
     /**
      * Lambda expression used for filtering and setting Division names to be displayed in the "custStateComboBox".
-     * It takes in a country's ID as a parameter, to be used as the filter. A lambda expression was chosen here for
-     * clarity and conciseness.
+     * It takes in a country's ID as a parameter, to be used as the filter. It then iterates through the list of
+     * division objects, comparing the ID of the selected country to the division's country ID. When a match is found,
+     * the name of the matching division is added to an Observable list. That list of division names is then set into the
+     * "custStateComboBox". A lambda expression was chosen here for clarity and conciseness.
      */
     ComboBoxInterface filter = (selectedCountryId) -> {
         // List for holding division names

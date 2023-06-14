@@ -13,7 +13,6 @@ public class JDBC {
         private static final String userName = "sqlUser"; // Username
         private static String password = "Passw0rd!"; // Password
         public static Connection connection = null;  // Connection Interface
-        public static PreparedStatement preparedStatement; //FIXME????
 
     /**
      * This method establishes the connection to the database.
@@ -33,7 +32,7 @@ public class JDBC {
     }
 
     /**
-     * The method closes the connection to the database.
+     * This method closes the connection to the database.
      */
     public static void closeConnection() {
         try {
@@ -52,7 +51,7 @@ public class JDBC {
      * @param userName The user's username
      * @param passWord The user's password
      * @return If it exists, the user's ID, otherwise null.
-     * @throws SQLException
+     * @throws SQLException handles SQL errors
      */
     public static Object getUserId (String userName, String passWord) throws SQLException {
         String query = "SELECT User_ID FROM USERS WHERE User_Name=? AND Password=?";
