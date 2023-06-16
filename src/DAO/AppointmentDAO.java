@@ -17,23 +17,34 @@ import java.time.Month;
  */
 public class AppointmentDAO {
 
-    // List of appointment objects instantiated from all records in the "appointments" table
+    /**
+     * The list of Appointment objects instantiated from all records in the "appointments" table.
+     */
     private static ObservableList<Appointment> allAppts = FXCollections.observableArrayList();
 
-    // List of appointment objects instantiated from records in the "appointments" table specific to a single user
+    /**
+     * The list of Appointment objects instantiated from records in the "appointments" table specific to a single user.
+     */
     private static ObservableList<Appointment> userAppts = FXCollections.observableArrayList();
 
-    // List of appointment objects instantiated from records in the "appointments" table specific to months, type, and count
+    /**
+     * The list of Appointment objects instantiated from records in the "appointments" table specific to months, type,
+     * and count.
+     */
     private static ObservableList<Appointment> apptCounts = FXCollections.observableArrayList();
 
-    // Select join query for pulling relevant appointment info from "appointments" & "contacts" tables
+    /**
+     * The select join query for pulling relevant appointment info from "appointments" and "contacts" tables.
+     */
     private static final String getAllApptsQuery =
             "SELECT appt.Appointment_ID, appt.Title, appt.Description, appt.Location, appt.Type, appt.Start, appt.End,"
             + " appt.Customer_ID, appt.User_ID, ct.Contact_Name"
             + " FROM appointments AS appt"
             + " INNER JOIN contacts AS ct ON appt.Contact_ID = ct.Contact_ID";
 
-    // Select join query for pulling a user's relevant appointment info from "appointments" & "contacts" tables
+    /**
+     * The select join query for pulling a user's relevant appointment info from "appointments" and "contacts" tables.
+     */
     private static final String getUserApptsQuery =
             "SELECT appt.Appointment_ID, appt.Title, appt.Description, appt.Location, appt.Type, appt.Start, appt.End,"
                     + " appt.Customer_ID, appt.User_ID, ct.Contact_Name"
@@ -41,27 +52,33 @@ public class AppointmentDAO {
                     + " INNER JOIN contacts AS ct ON appt.Contact_ID = ct.Contact_ID"
                     + " WHERE appt.User_ID = ?";
 
-    // Select query for pulling appointment info and counts from the "appointments" table
+    /**
+     * The select query for pulling appointment info and counts from the "appointments" table.
+     */
     private static final String getApptCountsQuery = "SELECT MONTH(start) AS month, type, COUNT(*) AS appointment_count"
                     + " FROM appointments"
                     + " GROUP BY MONTH(start), type"
                     + " ORDER BY MONTH(start), type";
 
-    // Insert statement for adding a new appointment record to the "appointments" table
+    /**
+     * The insert statement for adding a new appointment record to the "appointments" table.
+     */
     public static final String addApptStmt =
             "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    // Update statement for modifying an existing appointment record in the "appointments" table
+    /**
+     * The update statement for modifying an existing appointment record in the "appointments" table.
+     */
     public static final String modApptStmt =
             "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?,"
                     + " Customer_ID = ?, User_ID = ?, Contact_ID = ?"
                     + " WHERE Appointment_ID = ?";
 
-
-    // Delete statement for removing an appointment record from the "appointments" table
+    /**
+     * The delete statement for removing an appointment record from the "appointments" table.
+     */
     private static final String deleteApptStmt = "DELETE FROM appointments WHERE Appointment_ID=?";
-
 
     /**
      * This method retrieves all relevant appointment information currently in the database and instantiates a new
@@ -71,6 +88,7 @@ public class AppointmentDAO {
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<Appointment> getAllAppts() throws SQLException {
+
         // Clear out list of appointments
         allAppts.clear();
 
@@ -100,6 +118,7 @@ public class AppointmentDAO {
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<Appointment> getUserAppts(Object userId) throws SQLException {
+
         // Clear out list of appointments
         userAppts.clear();
 
@@ -128,6 +147,7 @@ public class AppointmentDAO {
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<Appointment> getApptCount() throws SQLException {
+
         // Clear out list of appointment counts
         apptCounts.clear();
 
@@ -148,7 +168,7 @@ public class AppointmentDAO {
      * This method removes the selected appointment from the "appointments" table. If successful, it calls the
      * getAllAppts() method to reload updated data into the "allAppts" ObservableList and throws a "removal" alert to
      * the GUI.
-     * @param selectedAppt appointment to be removed
+     * @param selectedAppt the appointment to be removed
      * @return "true" if customer is successfully removed, otherwise "false"
      * @throws SQLException handles SQL errors
      */

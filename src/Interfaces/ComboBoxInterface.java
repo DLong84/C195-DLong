@@ -8,6 +8,10 @@ import java.sql.SQLException;
  */
 public interface ComboBoxInterface {
 
-    // Abstract method for filtering/setting the combo box's selections
+    /**
+     * This is an abstract method for filtering/setting a ComboBox's selections.
+     * @param selectedCountryId the Id of the country to be used as the filter
+     * @throws SQLException handles SQL errors
+     */
     void filterComboBox (int selectedCountryId) throws SQLException;
 }

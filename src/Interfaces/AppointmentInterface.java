@@ -8,6 +8,10 @@ import java.sql.SQLException;
  */
 public interface AppointmentInterface {
 
-    // Abstract method for checking a user's appointments
+    /**
+     * This is an abstract method for checking a user's appointments.
+     * @param userId the Id of the user
+     * @throws SQLException handles SQL errors
+     */
     void apptCheck(Object userId) throws SQLException;
 }

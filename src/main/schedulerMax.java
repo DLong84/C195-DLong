@@ -15,7 +15,9 @@ import java.util.TimeZone;
 
 
 /**
- * TODO!!!!!
+ * This application tracks a company's customer appointments, along with specific customer contact and appointment
+ * information. The application allows for the creation/modification of customer information, as well as the
+ * creation/modification of appointments.
  * @author David Long
  */
 public class schedulerMax extends Application {
@@ -23,7 +25,7 @@ public class schedulerMax extends Application {
     /**
      * This method creates a ResourceBundle object from the "languages" package, then loads the stage and scene for the
      * first GUI form while utilizing said object for internationalization of certain form elements. This will load the
-     * "Main Form" GUI after the main() method is called.
+     * "Login Form" GUI after the main() method is called.
      * @param mainStage name of the stage for the GUI
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
@@ -32,8 +34,9 @@ public class schedulerMax extends Application {
         // ResourceBundle object
         ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB");
 
+        // Load user log-in
         mainStage.setResizable(false);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginForm.fxml"), rb_languages); //FIXME??
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginForm.fxml"), rb_languages);
         Parent root = loader.load();
         mainStage.setTitle(rb_languages.getString("loginFormHeader"));
         mainStage.setScene(new Scene(root, 600, 449));
@@ -56,39 +59,19 @@ public class schedulerMax extends Application {
      * @param args Command-line arguments for the scene. Not utilized.
      */
     public static void main(String[] args) {
-        // FIXME FOR TESTING
-        //Locale.setDefault(new Locale("en"));
 
-        // Set the desired time zone for testing
-        //String timeZoneId = "America/New_York";  // Replace with your desired time zone
+        Locale.setDefault(new Locale("fr"));
 
-        // Update the system time zone
-        //TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId));
-
-        // Verify the updated time zone
+        // Verify the updated time zone for debugging
         TimeZone timeZone = TimeZone.getDefault();
         System.out.println("System Time Zone: " + timeZone.getID());
 
-
-
-        /*try {
-            ResourceBundle rb_french = ResourceBundle.getBundle("main.loginRB_fr_CA", Locale.getDefault());
-
-            if (Locale.getDefault().getLanguage().equals("fr")) {
-                System.out.println("Language set to French");
-                System.out.println(rb_french.getString("Login"));
-                //Login.loginUserLbl FIXME
-            } else {
-                System.out.println("Language not loaded");
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e.getStackTrace());
-        }*/
-
+        // Open database connection
         JDBC.openConnection();
 
+        // Start the application
         launch(args);
+
 
 
 

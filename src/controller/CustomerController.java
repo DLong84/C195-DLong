@@ -8,7 +8,6 @@ import Interfaces.ComboBoxInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -111,6 +110,7 @@ public class CustomerController implements Initializable {
      */
     @FXML
     void onActionCancelCustomer(ActionEvent event) throws IOException {
+
         // Existing customer warning
         if (modifyCustomer) {
             if (AlertUtils.cancelWarningYes()) {
@@ -193,6 +193,7 @@ public class CustomerController implements Initializable {
      * "custStateComboBox". A lambda expression was chosen here for clarity and conciseness.
      */
     ComboBoxInterface filter = (selectedCountryId) -> {
+
         // List for holding division names
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
 
@@ -213,6 +214,7 @@ public class CustomerController implements Initializable {
      */
     @FXML
     void onCountrySelection(ActionEvent event) throws SQLException {
+
         // Set currently selected country to static variable
         selectedCountry = custCountryComboBox.getSelectionModel().getSelectedItem();
 

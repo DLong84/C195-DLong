@@ -12,10 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Appointment;
-import utlities.AlertUtils;
-import utlities.SceneUtils;
-import utlities.TimeUtils;
-import utlities.ValidationUtils;
+import utlities.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,18 +53,12 @@ public class LoginController implements Initializable {
     public static Object currentUserId = null;
 
     /**
-     * ResourceBundle object used to initialize the form with internationalized content
-     */
-    //ResourceBundle rb_languages; //FIXME Delete????
-
-    /**
      * This method loads the current form's GUI elements and obtains the current default locale accordingly.
-     * @param url The location of the controller's .fxml file
-     * @param rb_languages The locale-specific resources for the controller's objects
+     * @param url the location of the controller's .fxml file
+     * @param rb_languages the locale-specific resources for the controller's objects
      */
     @Override
     public void initialize (URL url, ResourceBundle rb_languages) {
-        System.out.println("Login form initialized");
 
         // Load form with the properties file of the corresponding default locale's language
         ResourceBundle.getBundle("languages.loginRB", Locale.getDefault());
@@ -89,6 +80,7 @@ public class LoginController implements Initializable {
      * conciseness.
      */
     AppointmentInterface upcoming = (userId) -> {
+
         // Variable for keeping track of upcoming appointments
         boolean upcomingAppt = false;
 
@@ -109,15 +101,18 @@ public class LoginController implements Initializable {
     };
 
     /**
-     * This method checks the user's login credentials with "getUserId" method for existence in the database. Upon
-     * validation, it assigns the user's Id to a variable, it calls the "toMainForm" method, then checks for user's
-     * upcoming appointments with use of a lambda expression.
+     * Upon validation for non-blank text-fields, this method checks the user's login credentials with "getUserId"
+     * method for existence in the database. Upon credentials validation, it assigns the user's Id to a variable and
+     * the attempt is logged. It then calls the "toMainForm" method and checks for the user's upcoming appointments with
+     * use of a lambda expression. If the user credentials are invalid, the unsuccessful attempt is logged and an alert
+     * is displayed to the user.
      * @param actionEvent "Login" button click
      * @throws SQLException handles SQL errors
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     @FXML
     void onActionLogin(ActionEvent actionEvent) throws SQLException, IOException {
+
         // Check for empty text fields
         if (ValidationUtils.loginIsEmpty(loginUserFld, AlertUtils.rb_languages.getString("Username"))) {
             return;
@@ -127,14 +122,16 @@ public class LoginController implements Initializable {
         }
 
         // Assign the user's ID object to the static variable
-        currentUserId = JDBC.getUserId(loginUserFld.getText(), loginPassFld.getText());
+        currentUserId = ValidationUtils.getUserId(loginUserFld.getText(), loginPassFld.getText());
 
         // Login credentials check
-        if (currentUserId == null) {
-            AlertUtils.popCredentialsAlert();
+        if (currentUserId == null) { // Invalid credentials
+            LoggingUtils.failToFile(loginUserFld.getText()); // Log unsuccessful attempt
+            AlertUtils.popCredentialsAlert(); // Invalid credentials dialog box
         }
         else {
             System.out.println("User with ID: " + currentUserId + " validated");
+            LoggingUtils.successToFile(loginUserFld.getText()); // Log successful attempt
             SceneUtils.toMainForm(loginBtn);
 
             // Lambda expression call to check for user's upcoming appointments

@@ -12,10 +12,12 @@ import java.time.*;
 public class TimeUtils {
 
     /**
-     * This method creates a list of LocalTime objects as appointment times for loading into a ComboBox
+     * This method creates a list of LocalTime objects as appointment times for loading into a ComboBox.
      * @return the list of appointment times
      */
     public static ObservableList<LocalTime> getAllApptTimes() {
+
+        // List of LocalTime objects
         ObservableList<LocalTime> apptTimes = FXCollections.observableArrayList();
 
         LocalTime listStart = LocalTime.of(0, 0);
@@ -30,7 +32,7 @@ public class TimeUtils {
     }
 
     /**
-     * This method obtains the current system's timezone "ZoneId" and returns it as a String
+     * This method obtains the current system's timezone "ZoneId" and returns it as a String.
      * @return the ZoneId (String)
      */
     public static String getTimezone() {
@@ -39,7 +41,7 @@ public class TimeUtils {
     }
 
     /**
-     * This method obtains the current system's timezone "ZoneId" and returns it as a ZoneId object
+     * This method obtains the current system's timezone "ZoneId" and returns it as a ZoneId object.
      * @return the ZoneId (object)
      */
     public static ZoneId getTimezoneIdObject() {
@@ -48,20 +50,20 @@ public class TimeUtils {
     }
 
     /**
-     * TODO
-     * @param date
-     * @param time
-     * @return
+     * This method takes in a LocalDate and a LocalTime and combines/converts them into a single LocalDateTime object.
+     * @param date the LocalDate object
+     * @param time the LocalTime object
+     * @return the LocalDateTime object
      */
     public static LocalDateTime toDateTime(LocalDate date, LocalTime time) {
         LocalDateTime dateTime = LocalDateTime.of(date, time);
-        System.out.println("LocalDateTime object: " + dateTime + " created from form");
+        System.out.println("LocalDateTime object: " + dateTime + " created from form"); // For debugging purposes
         return dateTime;
     }
 
     /**
      * This method takes in a LocalDateTime object and converts it to a LocalTime object in Eastern time.
-     * @param selectedDateTime LocalDateTime object to be converted
+     * @param selectedDateTime the LocalDateTime object to be converted
      * @return the LocalTime object in Eastern time
      */
     public static LocalTime toEST(LocalDateTime selectedDateTime) {
@@ -75,7 +77,4 @@ public class TimeUtils {
         LocalTime estTime = estDateTime.toLocalTime();
         return estTime;
     }
-
-
-
 }

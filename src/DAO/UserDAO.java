@@ -15,7 +15,9 @@ import java.sql.SQLException;
  */
 public class UserDAO {
 
-    // Query for everything in "users" table
+    /**
+     * The select query for everything in "users" table.
+     */
     private static final String selectAllQuery= "SELECT * FROM users";
 
     /**
@@ -26,6 +28,8 @@ public class UserDAO {
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<User> getAllUserObjects () throws SQLException {
+
+        // List of User objects
         ObservableList<User> users = FXCollections.observableArrayList();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
@@ -48,14 +52,15 @@ public class UserDAO {
      * @throws SQLException handles SQL errors
      */
     public static User getUserObject(int userId) throws SQLException {
+
+        // Instantiate User object
         User userObject = null;
         for(User user : getAllUserObjects()) {
-            if (user.getId() == userId) {
+            if (user.getId() == userId) {  // If user is found
                 userObject = user;
                 break;
             }
         }
         return userObject;
     }
-
 }

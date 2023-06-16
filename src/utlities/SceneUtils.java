@@ -30,16 +30,17 @@ public class SceneUtils {
     }
 
     /**
-     * This method changes the scene to the "LoginForm" GUI.
+     * This method changes the scene to the "LoginForm" GUI and loads the GUI elements with the appropriate
+     * ResourceBundle properties file.
      * @param clickedButton Variable used from the current scene to set the stage
      * @throws IOException thrown by FXMLLoader.load() if the .fxml file URL is not input correctly
      */
     public static void toLoginForm (Button clickedButton) throws IOException {
-        ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB");
+        ResourceBundle rb_languages = ResourceBundle.getBundle("languages.loginRB"); // ResourceBundle object
 
         Stage mainStage = (Stage) clickedButton.getScene().getWindow();
         mainStage.setResizable(false);
-        FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource("/view/LoginForm.fxml"), rb_languages); //FIXME??
+        FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource("/view/LoginForm.fxml"), rb_languages);
         Parent root = loader.load();
         mainStage.setTitle(rb_languages.getString("loginFormHeader"));
         mainStage.setScene(new Scene(root, 600, 449));
@@ -87,5 +88,4 @@ public class SceneUtils {
         stage.setScene(scene);
         stage.show();
     }
-
 }

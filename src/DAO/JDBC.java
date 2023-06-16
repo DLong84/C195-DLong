@@ -2,7 +2,10 @@ package DAO;
 
 import java.sql.*;
 
-
+/**
+ * This class is used to manage establishing the connection and closing the connection with the database.
+ * @author David Long
+ */
 public class JDBC {
     private static final String protocol = "jdbc";
         private static final String vendor = ":mysql:";
@@ -44,32 +47,4 @@ public class JDBC {
             System.out.println("Error:" + e.getMessage());
         }
     }
-
-    /**
-     * This method takes in a username and password, then executes a query which returns a matching ID object from the
-     * USERS table. If there is no user with same username and password, it returns a null object.
-     * @param userName The user's username
-     * @param passWord The user's password
-     * @return If it exists, the user's ID, otherwise null.
-     * @throws SQLException handles SQL errors
-     */
-    public static Object getUserId (String userName, String passWord) throws SQLException {
-        String query = "SELECT User_ID FROM USERS WHERE User_Name=? AND Password=?";
-
-        PreparedStatement ps = JDBC.connection.prepareStatement(query);
-        ps.setString(1, userName);
-        ps.setString(2, passWord);
-
-        ResultSet result = ps.executeQuery();
-
-        Object userId = null;
-        if (result.next()) {
-            userId = result.getObject(1);
-        }
-
-        return userId;
-    }
-
-
-
 }

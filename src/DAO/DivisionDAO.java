@@ -14,37 +14,21 @@ import java.sql.SQLException;
  */
 public class DivisionDAO {
 
-    // Query for everything in "first_level_divisions" table
+    /**
+     * The select query for everything in "first_level_divisions" table.
+     */
     private static final String selectAllQuery= "SELECT * FROM first_level_divisions";
 
     /**
-     * TODO.......Is this function NEEDED???
-     * @return
-     * @throws SQLException handles SQL errors
-     */
-    public static ObservableList<String> getAllDivisionNames () throws SQLException {
-        ObservableList<String> divisions = FXCollections.observableArrayList();
-
-        PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
-        ResultSet resultSet = ps.executeQuery();
-
-        while (resultSet.next()) {
-            Division division = new Division(resultSet.getInt("Division_ID"),
-                    resultSet.getString("Division"), resultSet.getInt("Country_ID"));
-            String divisionName = division.getDivision();
-            divisions.add(divisionName);
-        }
-        return divisions;
-    }
-
-    /**
-     * This method retrieves all first level division information currently in the database and instantiates a new division
-     * object for every record that is returned from the query. All division objects are added to an observable list,
-     * the list is then returned.
+     * This method retrieves all first level division information currently in the database and instantiates a new
+     * division object for every record that is returned from the query. All division objects are added to an observable
+     * list, the list is then returned.
      * @return the list of divisions
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<Division> getAllDivisionObjects () throws SQLException {
+
+        // List of Division objects
         ObservableList<Division> divisions = FXCollections.observableArrayList();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
@@ -68,7 +52,6 @@ public class DivisionDAO {
      * @throws SQLException handles SQL errors
      */
     public static int getDivisionId(String selectedDivision) throws SQLException {
-        //selectedDivision = CustomerController.selectedDivision; FIXME REMOVE??
 
         String query = "SELECT * FROM first_level_divisions WHERE Division=?";
 
@@ -88,11 +71,20 @@ public class DivisionDAO {
         return divisionId;
     }
 
-
+    /**
+     * This method takes in the Id of a division and compares it to all the division object Id's in the database. If the
+     * Id matches a division object's Id, that division name is returned.
+     * @param selectedDivisionId the division Id for comparison
+     * @return the matching division's name
+     * @throws SQLException handles SQL errors
+     */
     public static String getDivisionName(int selectedDivisionId) throws SQLException {
+
+        // Instantiate division name variable
         String divisionName = "";
-        for (Division division : DivisionDAO.getAllDivisionObjects()) {
-            if (division.getId() == selectedDivisionId) {
+
+        for (Division division : getAllDivisionObjects()) {
+            if (division.getId() == selectedDivisionId) { // If division is found
                 divisionName = division.getDivision();
                 break;
             }

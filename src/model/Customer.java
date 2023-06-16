@@ -18,7 +18,6 @@ public class Customer {
 
     /**
      * This is the Customer constructor.
-     *
      * @param id the customer's ID
      * @param name the customer's Name
      * @param address the customer's Address

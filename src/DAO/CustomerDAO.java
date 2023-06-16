@@ -16,27 +16,38 @@ import java.sql.SQLException;
  */
 public class CustomerDAO {
 
-    // List of customer objects instantiated from all records in the "customers" table
+    /**
+     * The list of Customer objects instantiated from all records in the "customers" table.
+     */
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
-    // Select join query for pulling relevant customer info from "customers", "first_level_divisions", & "countries" tables
+    /**
+     * The select join query for pulling relevant customer info from "customers", "first_level_divisions", and "countries"
+     * tables.
+     */
     private static final String getAllCustomersQuery =
                     "SELECT cust.Customer_ID, cust.Customer_Name, cust.Address, cust.Postal_Code, cust.Phone, cust.Division_ID, divs.Division, cnt.Country"
                     + " FROM customers AS cust"
                     + " INNER JOIN first_level_divisions AS divs ON cust.Division_ID = divs.Division_ID"
                     + " INNER JOIN countries AS cnt ON divs.Country_ID = cnt.Country_ID";
 
-    // Insert statement for adding a new customer record to the "customers" table
+    /**
+     * The insert statement for adding a new customer record to the "customers" table.
+     */
     public static final String addCustomerStmt =
             "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID)"
             + " VALUES (?, ?, ?, ?, ?)";
 
-    // Update statement for modifying an existing customer record in the "customers" table
+    /**
+     * The update statement for modifying an existing customer record in the "customers" table.
+     */
     public static final String modCustomerStmt =
             "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?"
             + " WHERE Customer_ID = ?";
 
-    // Delete statement for removing a customer record from the "customers" table
+    /**
+     * The delete statement for removing a customer record from the "customers" table.
+     */
     private static final String deleteCustomerStmt = "DELETE FROM customers WHERE Customer_ID=?";
 
     /**
@@ -47,6 +58,7 @@ public class CustomerDAO {
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
+
         // Clear out list of customers
         allCustomers.clear();
 
@@ -100,14 +112,16 @@ public class CustomerDAO {
      * @throws SQLException handles SQL errors
      */
     public static Customer getCustomerObject(int customerId) throws SQLException {
+
+        // Instantiate Customer object
         Customer customerObject = null;
+
         for(Customer customer : getAllCustomers()) {
-            if (customer.getId() == customerId) {
+            if (customer.getId() == customerId) {  // If customer is found
                 customerObject = customer;
                 break;
             }
         }
         return customerObject;
     }
-
 }

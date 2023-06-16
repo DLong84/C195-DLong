@@ -14,7 +14,9 @@ import java.sql.SQLException;
  */
 public class ContactDAO {
 
-    // Query for everything in "contacts" table
+    /**
+     * The select query for everything in "contacts" table.
+     */
     private static final String selectAllQuery= "SELECT * FROM contacts";
 
     /**
@@ -25,6 +27,8 @@ public class ContactDAO {
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<Contact> getAllContactObjects () throws SQLException {
+
+        // List of Contact objects
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
@@ -48,14 +52,15 @@ public class ContactDAO {
      * @throws SQLException handles SQL errors
      */
     public static Contact getContactObject(String contactName) throws SQLException {
+
+        // Instantiate Contact object
         Contact contactObject = null;
         for(Contact contact : getAllContactObjects()) {
-            if (contact.getName().equals(contactName)) {
+            if (contact.getName().equals(contactName)) {  // If contact is found
                 contactObject = contact;
                 break;
             }
         }
         return contactObject;
     }
-
 }

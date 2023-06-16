@@ -15,28 +15,10 @@ import java.sql.SQLException;
  */
 public class CountryDAO {
 
-    // Query for everything in Countries table
-    private static final String selectAllQuery = "SELECT * FROM COUNTRIES";
-
     /**
-     * TODO.....REMOVE???
-     * @return
-     * @throws SQLException handles SQL errors
+     * The select query for everything in "countries" table.
      */
-    public static ObservableList<Country> getAllCountries () throws SQLException {
-        ObservableList<Country> countries = FXCollections.observableArrayList();
-
-        PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
-
-        ResultSet resultSet = ps.executeQuery();
-        while (resultSet.next()) {
-            Country country = new Country(resultSet.getInt("Country_Id"),
-                    resultSet.getString("Country"));
-
-            countries.add(country);
-        }
-        return countries;
-    }
+    private static final String selectAllQuery = "SELECT * FROM COUNTRIES";
 
     /**
      * This method retrieves all country information currently in the database and instantiates a new country object for
@@ -46,6 +28,8 @@ public class CountryDAO {
      * @throws SQLException handles SQL errors
      */
     public static ObservableList<String> getAllCountryNames () throws SQLException {
+
+        // List of country names
         ObservableList<String> countries = FXCollections.observableArrayList();
 
         PreparedStatement ps = JDBC.connection.prepareStatement(selectAllQuery);
@@ -69,7 +53,7 @@ public class CountryDAO {
      * @throws SQLException handles SQL errors
      */
     public static int getCountryId(String selectedCountry) throws SQLException {
-        selectedCountry = CustomerController.selectedCountry;
+        selectedCountry = CustomerController.selectedCountry; // Currently selected country
 
         String query = "SELECT * FROM countries WHERE Country=?";
 
@@ -88,6 +72,4 @@ public class CountryDAO {
 
         return countryId;
     }
-
-
 }

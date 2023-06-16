@@ -19,7 +19,7 @@ public class AlertUtils {
 
     /**
      * This method creates an error alert dialog box for an empty text field on the login form.
-     * @param labelTxt The current GUI form's label name for the empty text field
+     * @param labelTxt the current GUI form's label name for the empty text field
      */
     public static void loginBlankAlert(String labelTxt) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,7 +76,7 @@ public class AlertUtils {
 
     /**
      * This method creates a confirmation dialog box for exiting the application.
-     * @return Returns true if the "Yes" button is clicked, otherwise returns false
+     * @return "true" if the "Yes" button is clicked, otherwise "false"
      */
     public static boolean loginExitAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -100,7 +100,7 @@ public class AlertUtils {
     }
 
     /**
-     * This method creates an error dialog box for bad login credentials.
+     * This method creates an error dialog box for invalid login credentials.
      */
     public static void popCredentialsAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -118,7 +118,7 @@ public class AlertUtils {
 
     /**
      * This method creates a confirmation dialog box for logging out of the application.
-     * @return Returns true if the "Yes" button is clicked, otherwise returns false
+     * @return "true" if the "Yes" button is clicked, otherwise "false"
      */
     public static boolean mainLogoutConfirm() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -142,8 +142,8 @@ public class AlertUtils {
 
     /**
      * This method creates a warning dialog box for cancelling the creation of a new customer or appointment.
-     * @param objectType The type of object being created (Customer or Appointment)
-     * @return Returns true if the "Yes" button is clicked, otherwise returns false
+     * @param objectType the type of object being created (Customer or Appointment)
+     * @return "true" if the "Yes" button is clicked, otherwise "false"
      */
     public static boolean cancelWarningYes(String objectType) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -166,7 +166,7 @@ public class AlertUtils {
 
     /**
      * This method creates a warning dialog box for cancelling the modification of an existing customer or appointment.
-     * @return Returns true if the "Yes" button is clicked, otherwise returns false
+     * @return "true" if the "Yes" button is clicked, otherwise "false"
      */
     public static boolean cancelWarningYes() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -188,9 +188,9 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
-     * @param objectType
-     * @return
+     * This method creates a warning dialog box for deleting a customer or appointment.
+     * @param objectType the type of object being deleted (Customer or Appointment)
+     * @return "true" if the "Yes" button is clicked, otherwise "false"
      */
     public static boolean deleteWarningYes(String objectType) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -212,8 +212,9 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
-     * @param selectedCustomer
+     * This method creates an error dialog box for when a customer has appointments scheduled while attempting to delete
+     * the customer.
+     * @param selectedCustomer the customer with remaining appointments
      */
     public static void remainingApptsAlert(Customer selectedCustomer) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -225,8 +226,8 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
-     * @param selectedCustomer
+     * This method creates an information dialog box for when a customer has been deleted.
+     * @param selectedCustomer the customer that is deleted
      */
     public static void customerRemovedAlert(Customer selectedCustomer) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -237,20 +238,21 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
-     * @param selectedAppointment
+     * This method creates an information dialog box for when an appointment has been deleted.
+     * @param selectedAppointment the appointment that is deleted
      */
     public static void apptCanceledAlert(Appointment selectedAppointment) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Appointment Canceled");
         alert.setHeaderText("Appointment Canceled");
-        alert.setContentText("Appointment having ID: " + selectedAppointment.getId() + ", "  + selectedAppointment.getType()
-            + " successfully canceled");
+        alert.setContentText("Appointment having ID: " + selectedAppointment.getId() + ", "
+                + "Type: " + selectedAppointment.getType() + ", "
+                + " successfully canceled");
         alert.showAndWait();
     }
 
     /**
-     * TODO
+     * This method creates an error dialog box for an appointment attempting to be scheduled outside business hours.
      */
     public static void businessHoursAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -261,7 +263,8 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
+     * This method creates an error dialog box for an appointment attempting to be scheduled with the start time later
+     * than the end time.
      */
     public static void apptTimesAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -272,7 +275,8 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
+     * This method creates an error dialog box for an appointment attempting to be scheduled overlapping with an existing
+     * appointment.
      */
     public static void overlapAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -284,7 +288,7 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
+     * This method creates an information dialog box for when a user has an upcoming appointment.
      * @param appt the upcoming appointment
      */
     public static void upcomingApptAlert(Appointment appt) {
@@ -301,7 +305,7 @@ public class AlertUtils {
     }
 
     /**
-     * TODO
+     * This method creates an information dialog box for when a user has no upcoming appointments.
      */
     public static void noUpcomingApptAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

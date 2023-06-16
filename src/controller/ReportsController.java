@@ -72,8 +72,8 @@ public class ReportsController implements Initializable {
     /**
      * This method loads the current form's GUI elements and sets the form's tableviews with customer and appointment
      * data from the database.
-     * @param url The location of the controller's .fxml file
-     * @param resourceBundle The locale-specific resources for the controller's objects
+     * @param url the location of the controller's .fxml file
+     * @param resourceBundle the locale-specific resources for the controller's objects
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

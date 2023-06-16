@@ -1,9 +1,7 @@
 package controller;
 
 import DAO.AppointmentDAO;
-import DAO.ContactDAO;
 import DAO.CustomerDAO;
-import Interfaces.AppointmentInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +13,6 @@ import model.Appointment;
 import model.Customer;
 import utlities.AlertUtils;
 import utlities.SceneUtils;
-import utlities.TimeUtils;
 import utlities.ValidationUtils;
 
 import java.io.IOException;
@@ -165,6 +162,7 @@ public class MainFormController  implements Initializable {
      */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException {
+
         try {
             // Assign currently selected customer to "selectedCustomer" object
             selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
@@ -194,6 +192,7 @@ public class MainFormController  implements Initializable {
      */
     @FXML
     void onActionDeleteCustomer(ActionEvent event) throws SQLException {
+
         try {
             // Assign currently selected customer to "selectedCustomer" object
             selectedCustomer = mainCustomersTable.getSelectionModel().getSelectedItem();
@@ -239,6 +238,7 @@ public class MainFormController  implements Initializable {
      */
     @FXML
     void onActionUpdateAppt(ActionEvent event) throws IOException {
+
         try {
             // Assign currently selected appointment to "selectedAppt" object
             selectedAppt = mainApptsTable.getSelectionModel().getSelectedItem();
@@ -297,8 +297,8 @@ public class MainFormController  implements Initializable {
     @FXML
     void onViewAllAppts(ActionEvent event) {
 
-        // Set tableview with all appointments currently in database
         try {
+            // Set tableview with all appointments currently in database
             mainApptsTable.setItems(AppointmentDAO.getAllAppts());
         } catch (SQLException e) {
             throw new RuntimeException(e);
